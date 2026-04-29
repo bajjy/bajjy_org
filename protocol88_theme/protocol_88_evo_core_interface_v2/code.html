@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PROTOCOL_88_EVO | CORE_INTERFACE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@400;700&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #141313;
+            background-image: 
+                linear-gradient(rgba(20, 19, 19, 0.97) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(20, 19, 19, 0.97) 1px, transparent 1px);
+            background-size: 32px 32px;
+            overflow: hidden;
+        }
+        .scanline-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+        }
+        .clipped-corner-inv {
+            clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px);
+        }
+        .bracket-x::before { content: '['; margin-right: 4px; opacity: 0.5; }
+        .bracket-x::after { content: ']'; margin-left: 4px; opacity: 0.5; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed-variant": "#454749",
+                      "tertiary-container": "#41000e",
+                      "secondary-container": "#484c50",
+                      "surface-bright": "#3a3939",
+                      "error": "#ffb4ab",
+                      "surface-container-highest": "#353435",
+                      "outline-variant": "#44474a",
+                      "on-primary-container": "#838486",
+                      "surface-dim": "#141313",
+                      "on-secondary-fixed-variant": "#43474b",
+                      "inverse-surface": "#e5e2e1",
+                      "surface-tint": "#c6c6c9",
+                      "on-tertiary": "#67001c",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "tertiary-fixed": "#ffdadb",
+                      "primary-fixed": "#e2e2e5",
+                      "surface-container-high": "#2a2a2a",
+                      "inverse-primary": "#5d5e61",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-error": "#690005",
+                      "primary-fixed-dim": "#c6c6c9",
+                      "primary": "#c6c6c9",
+                      "outline": "#8f9194",
+                      "on-secondary-fixed": "#181c20",
+                      "on-tertiary-fixed-variant": "#91002b",
+                      "on-background": "#e5e2e1",
+                      "on-tertiary-fixed": "#40000e",
+                      "secondary-fixed-dim": "#c3c7cc",
+                      "on-secondary": "#2d3135",
+                      "inverse-on-surface": "#313030",
+                      "background": "#141313",
+                      "surface-variant": "#353435",
+                      "secondary": "#c3c7cc",
+                      "primary-container": "#1a1c1e",
+                      "on-primary-fixed": "#1a1c1e",
+                      "on-surface-variant": "#c5c6ca",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed": "#e0e3e8",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-container": "#201f1f",
+                      "tertiary": "#ffb2b7",
+                      "surface": "#141313",
+                      "on-tertiary-container": "#eb4762",
+                      "on-surface": "#e5e2e1",
+                      "on-secondary-container": "#b9bcc1",
+                      "on-primary": "#2f3133",
+                      "error-container": "#93000a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "edge-margin": "24px",
+                      "unit": "4px",
+                      "container-padding": "16px",
+                      "gutter": "12px",
+                      "micro": "2px"
+              },
+              "fontFamily": {
+                      "micro-label": ["Space Grotesk"],
+                      "header-primary": ["Space Grotesk"],
+                      "data-readout": ["JetBrains Mono"],
+                      "digital-display": ["monospace"],
+                      "code-snippet": ["Fira Code"]
+              },
+              "fontSize": {
+                      "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                      "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                      "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background font-data-readout selection:bg-on-tertiary-container selection:text-white">
+<div class="scanline-overlay"></div>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-3 h-12 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/40">
+<div class="flex items-center space-x-6">
+<span class="text-lg font-black text-rose-600 tracking-tighter">PROTOCOL_88_EVO</span>
+<nav class="hidden md:flex space-x-4 items-center">
+<a class="font-mono text-[11px] tracking-widest uppercase text-rose-500 border-b border-rose-600 pb-1" href="#">SENSORS</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">UPLINK</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">TACTICAL</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">LOGS</a>
+</nav>
+</div>
+<div class="flex items-center space-x-2">
+<div class="flex flex-col items-end mr-4 opacity-40">
+<span class="font-micro-label text-micro-label text-on-surface">SYS_LOAD: 24.8%</span>
+<span class="font-micro-label text-micro-label text-on-surface">PKT_LOSS: 0.001%</span>
+</div>
+<button class="p-2 hover:bg-rose-950/20 hover:text-rose-400 transition-all text-slate-400">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings_input_component">settings_input_component</span>
+</button>
+<button class="p-2 hover:bg-rose-950/20 hover:text-rose-400 transition-all text-slate-400">
+<span class="material-symbols-outlined text-[18px]" data-icon="terminal">terminal</span>
+</button>
+<button class="p-2 hover:bg-rose-950/20 hover:text-rose-400 transition-all text-slate-400">
+<span class="material-symbols-outlined text-[18px]" data-icon="security">security</span>
+</button>
+</div>
+</header>
+<!-- Left Sidebar -->
+<aside class="fixed left-0 top-12 h-[calc(100vh-48px)] w-64 flex flex-col border-r border-slate-800 z-40 bg-slate-950/95">
+<div class="p-4 border-b border-slate-800/50">
+<div class="flex items-center space-x-3 mb-1">
+<div class="w-8 h-8 bg-surface-container-high border border-slate-700 flex items-center justify-center clipped-corner overflow-hidden">
+<img alt="Admin" class="w-full h-full object-cover opacity-80" data-alt="A futuristic neural link interface profile picture with complex circuit lines overlaid on a dark, anonymous silhouette. The image is rendered in cold blue and sharp raspberry-red tones, emphasizing high-tech surveillance aesthetics. Micro-data strings and scanning artifacts are visible across the portrait, set against a dark industrial background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEIteyfVjkEt0U5fkAaaLYekgyUg37CCTUeEend3JsCRg3nNIZ-SZEJh6sUzQI9pTelvE8g3MjNBk8IQB0BBhZUcmky5Ok2pdQMDfsmasUKVsbtL0O0l8QszbvUgAmvkG4cd5JSofL8YpPpzgpcl0e7zhPK0fhPb0ibNCDqDoPApBFeiHyCTYFG4E7GCaNUZpmqNLs-j5Y9LP3BTKF5rNF2FmKpa-f2L98-ZPsAkqa_WLHVeHIKwTX4WFh_XGTgBIvnbTxMlTbBls"/>
+</div>
+<div>
+<p class="font-mono text-[10px] leading-tight text-rose-500 font-bold">OPERATOR_01</p>
+<p class="font-mono text-[8px] text-slate-500 tracking-tighter">LAT: 40.7128 / LON: 74.0060</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow py-2">
+<a class="bg-rose-600/10 text-rose-500 border-l-2 border-rose-600 flex items-center px-4 py-3 space-x-3 group" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="grid_view" data-weight="fill">grid_view</span>
+<span class="font-mono text-[10px] leading-tight tracking-widest">OVERVIEW</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all group" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="enhanced_encryption">enhanced_encryption</span>
+<span class="font-mono text-[10px] leading-tight tracking-widest">ENCRYPTION</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all group" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="hub">hub</span>
+<span class="font-mono text-[10px] leading-tight tracking-widest">NETWORK</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all group" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="biometric_setup">android_fingerprint</span>
+<span class="font-mono text-[10px] leading-tight tracking-widest">VULN_SCAN</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all group" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="memory">memory</span>
+<span class="font-mono text-[10px] leading-tight tracking-widest">MEMORY</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all group" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="power_settings_new">power_settings_new</span>
+<span class="font-mono text-[10px] leading-tight tracking-widest">TERMINATE</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-800/50">
+<button class="w-full py-2 mb-4 bg-transparent border border-rose-600/40 text-rose-500 font-mono text-[10px] tracking-widest clipped-corner hover:bg-rose-600 hover:text-white transition-all active:bg-rose-900/30">
+                INITIATE_BREACH
+            </button>
+<div class="flex justify-between text-slate-600 font-mono text-[8px]">
+<div class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-[10px]" data-icon="analytics">analytics</span>
+<span>SYS_STATUS</span>
+</div>
+<div class="flex items-center space-x-1">
+<span class="material-symbols-outlined text-[10px]" data-icon="developer_board">developer_board</span>
+<span>VER_88.0.1</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 mt-12 p-3 h-[calc(100vh-48px)] overflow-hidden relative">
+<!-- Background Metadata Layers -->
+<div class="absolute inset-0 z-0 opacity-10 pointer-events-none p-4 overflow-hidden">
+<div class="font-code-snippet text-[10px] leading-none whitespace-pre select-none">
+                0x4A 0x8B 0x33 0xFC 0x99 0x21 0x00 0xFF<br/>
+                UPLINK_ESTABLISHED: NODE_88_CORE_ALPHA<br/>
+                ENCRYPTION_LAYER_7: ACTIVE (AES-256-GCM)<br/>
+                SCANNING_MEM_STACK... 0x00234FF1 [OK]<br/>
+                SCANNING_MEM_STACK... 0x00235002 [OK]<br/>
+                TRACING_SOCKET: 192.168.1.101 -&gt; 8.8.8.8:443<br/>
+                TRACING_SOCKET: 192.168.1.101 -&gt; 1.1.1.1:53<br/>
+                PACKET_CAPTURE_ENABLED: TRUE<br/>
+                ANOMALY_DETECTION: STANDBY<br/>
+                CORE_TEMP: 42C / STABLE<br/>
+                VOLTAGE: 1.22V / NORMAL<br/>
+</div>
+</div>
+<div class="grid grid-cols-12 grid-rows-6 gap-3 h-full relative z-10">
+<!-- Central HUD/3D Visualizer -->
+<div class="col-span-8 row-span-4 bg-slate-950/40 border border-slate-800 relative group overflow-hidden">
+<div class="absolute top-0 left-0 p-2 z-20">
+<div class="flex items-center space-x-2">
+<span class="w-1.5 h-1.5 bg-rose-600 animate-pulse"></span>
+<span class="font-mono text-[9px] text-rose-500 tracking-tighter bracket-x uppercase">LIVE_WIRE_NETWORK_VISUALIZER</span>
+</div>
+</div>
+<div class="absolute bottom-2 right-2 z-20 text-slate-600 font-mono text-[8px] space-y-1 text-right">
+<p>ROT_X: 14.5° / ROT_Y: 88.2° / ZOOM: 1.4X</p>
+<p>POLYGONS: 442,102 / VERTICES: 1,102,883</p>
+</div>
+<!-- 3D Network Visualization Placeholder -->
+<div class="w-full h-full flex items-center justify-center p-8">
+<div class="relative w-full h-full border border-slate-800/30">
+<img alt="Network Visualization" class="w-full h-full object-cover mix-blend-screen opacity-60" data-alt="A dense, complex 3D wireframe network visualization representing neural connections or data flow. The structure is composed of glowing white and raspberry-red lines in a dark, infinite void. Faint geometric UI overlays, coordinate markers, and digital telemetry data float in the three-dimensional space, giving a sense of deep technical immersion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHR-1hwD7mtCBMIB94fDofcyoLCxRsGMy1nKn3YpbfNw9vef2-urgh7BA13K3Mx15C__WF1hL2epOSE8kYFthf-IIiIhraiPnA2eWB1nsVITNjTrxjZZZwTO5kSDWlEoU8C1tfS5G5m-6ppwEltDMoP7g5NvIFKr_T44M8CUtmUozBpSxiBZdLy1Gh3qO22JRxo62XFVvLIir8ZfPzf5SHKUa98aAxHuRfaXmF0ZBiuGQfa0B-lVEu9GidtH_fNWCPa_6bxtjcCf4"/>
+<!-- Technical Overlays -->
+<div class="absolute inset-0 border-[10px] border-transparent border-t-rose-600/20 border-l-rose-600/20 w-12 h-12 top-0 left-0"></div>
+<div class="absolute inset-0 border-[10px] border-transparent border-b-rose-600/20 border-r-rose-600/20 w-12 h-12 bottom-0 right-0"></div>
+</div>
+</div>
+</div>
+<!-- Global Telemetry Bento -->
+<div class="col-span-4 row-span-2 bg-slate-950/60 border border-slate-800 p-3 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-header-primary text-micro-label text-on-surface tracking-widest uppercase">NODE_TELEMETRY</h3>
+<span class="text-rose-500 text-[10px]">ALPHA_7</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-end justify-between border-b border-slate-800 pb-1">
+<span class="text-[9px] text-slate-500 uppercase">THROUGHPUT</span>
+<span class="text-[14px] font-digital-display text-on-surface">1.2 GB/S</span>
+</div>
+<div class="flex items-end justify-between border-b border-slate-800 pb-1">
+<span class="text-[9px] text-slate-500 uppercase">LATENCY</span>
+<span class="text-[14px] font-digital-display text-on-tertiary-container">4.2 MS</span>
+</div>
+</div>
+</div>
+<div class="flex space-x-1 mt-4">
+<div class="h-1 flex-grow bg-rose-600/30"></div>
+<div class="h-1 flex-grow bg-rose-600/30"></div>
+<div class="h-1 flex-grow bg-rose-600/80"></div>
+<div class="h-1 flex-grow bg-rose-600/30"></div>
+<div class="h-1 flex-grow bg-rose-600/30"></div>
+</div>
+</div>
+<!-- Threat Level Panel -->
+<div class="col-span-4 row-span-2 bg-slate-950/60 border border-slate-800 p-3">
+<h3 class="font-header-primary text-micro-label text-on-surface tracking-widest uppercase mb-3">VULNERABILITY_INDEX</h3>
+<div class="flex items-center justify-center h-24 relative">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-20 h-20 border-2 border-rose-600/20 rounded-full animate-ping"></div>
+</div>
+<div class="text-center z-10">
+<p class="text-[32px] font-digital-display text-rose-500 leading-none">0.02</p>
+<p class="text-[8px] text-slate-500 uppercase tracking-widest">CRITICAL_INDEX</p>
+</div>
+</div>
+<div class="mt-2 grid grid-cols-4 gap-1">
+<div class="h-1 bg-on-secondary-fixed-variant"></div>
+<div class="h-1 bg-on-secondary-fixed-variant"></div>
+<div class="h-1 bg-on-secondary-fixed-variant"></div>
+<div class="h-1 bg-on-secondary-fixed-variant"></div>
+</div>
+</div>
+<!-- Data Feed Log -->
+<div class="col-span-4 row-span-2 bg-slate-950/60 border border-slate-800 p-3 overflow-hidden">
+<div class="flex justify-between items-center mb-2 border-b border-slate-800 pb-1">
+<h3 class="font-header-primary text-micro-label text-on-surface tracking-widest uppercase">TERMINAL_OUTPUT</h3>
+<span class="material-symbols-outlined text-slate-500 text-[12px]" data-icon="monitor_heart">monitor_heart</span>
+</div>
+<div class="font-code-snippet text-[9px] text-slate-400 space-y-1">
+<p><span class="text-rose-500">[14:22:01]</span> BREACH_DETECTION: NEGATIVE</p>
+<p><span class="text-rose-500">[14:22:04]</span> PORT_SCAN_RECV: 443_SSL_ACK</p>
+<p><span class="text-rose-500">[14:22:08]</span> DB_SYNC: 100%_SUCCESS</p>
+<p><span class="text-rose-500">[14:22:12]</span> HEURISTIC_PASS: STABLE</p>
+<p><span class="text-rose-500">[14:22:15]</span> NEURAL_LINK: OPTIMIZED</p>
+</div>
+</div>
+<!-- Active Connections Panel -->
+<div class="col-span-8 row-span-2 bg-slate-950/60 border border-slate-800 p-3">
+<div class="flex justify-between items-center mb-3">
+<h3 class="font-header-primary text-micro-label text-on-surface tracking-widest uppercase">ACTIVE_GATEWAYS</h3>
+<div class="flex space-x-2">
+<span class="text-[8px] text-rose-500 px-1 bg-rose-950/30 border border-rose-900">TUNNEL_V4</span>
+<span class="text-[8px] text-slate-500 px-1 bg-slate-900 border border-slate-800">ENCRYPTED</span>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-3">
+<div class="border border-slate-800 p-2 bg-slate-900/30 clipped-corner">
+<p class="text-[8px] text-slate-500 uppercase">NODE_01</p>
+<p class="text-[12px] font-digital-display text-on-surface">192.2.1.44</p>
+<div class="h-0.5 bg-rose-600 w-full mt-1"></div>
+</div>
+<div class="border border-slate-800 p-2 bg-slate-900/30 clipped-corner">
+<p class="text-[8px] text-slate-500 uppercase">NODE_02</p>
+<p class="text-[12px] font-digital-display text-on-surface">192.2.1.88</p>
+<div class="h-0.5 bg-rose-600 w-3/4 mt-1 opacity-40"></div>
+</div>
+<div class="border border-slate-800 p-2 bg-slate-900/30 clipped-corner">
+<p class="text-[8px] text-slate-500 uppercase">NODE_03</p>
+<p class="text-[12px] font-digital-display text-on-surface">192.2.1.12</p>
+<div class="h-0.5 bg-rose-600 w-full mt-1"></div>
+</div>
+<div class="border border-slate-800 p-2 bg-slate-900/30 clipped-corner">
+<p class="text-[8px] text-slate-500 uppercase">NODE_04</p>
+<p class="text-[12px] font-digital-display text-on-surface">192.2.1.09</p>
+<div class="h-0.5 bg-rose-600 w-1/2 mt-1 opacity-20"></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB - Restricted to Dashboard -->
+<div class="fixed bottom-6 right-6 z-50">
+<button class="w-12 h-12 bg-rose-600 text-white rounded-none clipped-corner shadow-2xl flex items-center justify-center hover:scale-105 transition-transform active:bg-rose-900">
+<span class="material-symbols-outlined" data-icon="add_moderator" data-weight="fill">add_moderator</span>
+</button>
+</div>
+<!-- Background Decoration -->
+<div class="fixed bottom-2 left-2 z-50 pointer-events-none opacity-40">
+<div class="font-mono text-[8px] text-slate-600 space-y-0">
+<p>SYSTEM_CORE: ACTIVE</p>
+<p>UI_DENSITY_LEVEL: ULTRA</p>
+<p>RENDER_ENGINE: P88_EVO_V3</p>
+</div>
+</div>
+</body></html>

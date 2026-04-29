@@ -1,0 +1,245 @@
+/*
+ * Page-level + reusable component styles. Loaded after protocol88.css.
+ */
+
+/* ---------- social link grid ---------- */
+.social-grid {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;
+}
+@media (min-width: 720px) {
+  .social-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.social-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  background: var(--slate-900); border: 1px solid var(--slate-800);
+  font-family: var(--font-data); font-size: 11px; color: var(--slate-300);
+  transition: border-color .15s, color .15s, background .15s;
+}
+.social-link:hover {
+  border-color: var(--rose-500); color: var(--rose-400);
+  background: rgba(76,5,25,0.20);
+}
+.social-link .mso { color: var(--rose-500); }
+.social-link .label {
+  display: block;
+  font-family: var(--font-header); font-size: var(--fs-micro);
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--slate-500);
+}
+
+/* ---------- experiments matrix ----------
+ * Boring on purpose: plain grid, plain bordered boxes. No clip-path, no
+ * gradients, no pseudo-elements. The hacker-vibe comes from the rose accent
+ * and the typography, not the geometry.
+ */
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (min-width: 720px) {
+  .matrix { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1100px) {
+  .matrix { grid-template-columns: repeat(4, 1fr); }
+}
+
+.repo {
+  position: relative;
+  display: block;
+  background: #1c1b1b;
+  border: 1px solid #1e293b;
+  padding: 16px;
+  color: var(--on-surface);
+  text-decoration: none;
+  transition: border-color .15s, background .15s, transform .15s;
+  min-height: 180px;
+}
+.repo:hover {
+  border-color: var(--rose-500);
+  background: #201f1f;
+  transform: translateY(-2px);
+  color: var(--on-surface);
+}
+
+.repo__head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.repo__title {
+  font-family: var(--font-header);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--rose-500);
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.2;
+}
+.repo__lang {
+  font-family: var(--font-code);
+  font-size: 9px;
+  color: var(--slate-500);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.repo__desc {
+  font-family: var(--font-data);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--slate-300);
+  margin: 0 0 10px 0;
+}
+.repo__tags {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  margin-bottom: 10px;
+}
+.repo__meta {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid #1e293b;
+  padding-top: 8px;
+  font-family: var(--font-code);
+  font-size: 10px;
+  color: var(--slate-500);
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.repo__meta .row { gap: 12px; }
+.repo__star { display: inline-flex; align-items: center; gap: 4px; }
+.repo__archive {
+  position: absolute; top: 8px; right: 12px;
+  font-family: var(--font-code);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--rose-700);
+}
+
+/* banner cards = external sites not in GitHub */
+.repo--banner {
+  border-color: var(--rose-600);
+  background: #2a1015;
+}
+.repo--banner:hover {
+  background: #3a151c;
+  border-color: var(--rose-500);
+}
+.repo--banner .repo__title {
+  color: var(--rose-400);
+  font-size: 16px;
+}
+.repo--banner .repo__pin {
+  position: absolute; top: 10px; right: 12px;
+  font-family: var(--font-code);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--rose-300);
+  background: rgba(76,5,25,0.7);
+  padding: 2px 6px;
+  border: 1px solid rgba(225,29,72,0.5);
+}
+.repo--banner .visit-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-data);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--rose-300);
+  margin-bottom: 10px;
+}
+
+/* size variants — featured cards span 2 columns */
+@media (min-width: 720px) {
+  .repo--lg { grid-column: span 2; }
+}
+@media (min-width: 1100px) {
+  .repo--xl { grid-column: span 2; }
+}
+
+/* ---------- service deck ---------- */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+.service {
+  background: var(--surface-container);
+  border: 1px solid var(--slate-800);
+  padding: 14px 16px;
+  border-left: 2px solid var(--rose-600);
+}
+.service h3 {
+  font-family: var(--font-header);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rose-500);
+  margin: 0 0 6px;
+}
+.service p {
+  font-family: var(--font-data);
+  font-size: 11px;
+  color: var(--slate-400);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ---------- p-contact ---------- */
+.p-contact .channels {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;
+}
+.p-contact .channel {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px;
+  background: var(--surface-container);
+  border: 1px solid var(--slate-800);
+  font-family: var(--font-data);
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.p-contact .channel:hover {
+  border-color: var(--rose-500); background: var(--surface-container-high);
+  transform: translateY(-2px);
+}
+.p-contact .channel .mso { color: var(--rose-500); font-size: 22px; }
+.p-contact .channel .label {
+  font-size: var(--fs-micro);
+  font-family: var(--font-header); letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--slate-500);
+}
+.p-contact .channel .handle { font-size: 13px; color: var(--on-surface); }
+
+/* ---------- p-error ---------- */
+.p-error .glitch {
+  font-family: var(--font-display); font-size: 96px;
+  letter-spacing: 0.2em; color: var(--rose-500);
+  text-shadow: 2px 0 var(--rose-700), -2px 0 var(--slate-300);
+  animation: glitch 1.6s infinite;
+}
+@keyframes glitch {
+  0%, 95%, 100% { transform: translate(0,0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, 0); }
+  80% { transform: translate(0, 1px); }
+}
+
+/* ---------- filter chips ---------- */
+.filter-bar {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;
+}
+.filter-bar a, .filter-bar button {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  background: var(--slate-900); border: 1px solid var(--slate-800);
+  font-family: var(--font-code); font-size: 10px; color: var(--slate-400);
+  transition: all .12s;
+}
+.filter-bar a:hover, .filter-bar button:hover {
+  border-color: var(--rose-500); color: var(--rose-400);
+}
+.filter-bar a.active, .filter-bar button.active {
+  background: rgba(225,29,72,0.15); border-color: var(--rose-600);
+  color: var(--rose-400);
+}
+.filter-bar .count { font-size: 9px; color: var(--slate-600); }

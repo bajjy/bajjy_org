@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PROTOCOL_88_EVO // TACTICAL_STREAM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Fira+Code:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#181c20",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#b9bcc1",
+                        "surface-container-highest": "#353435",
+                        "on-primary-fixed": "#1a1c1e",
+                        "on-error-container": "#ffdad6",
+                        "surface-container": "#201f1f",
+                        "surface": "#141313",
+                        "on-primary": "#2f3133",
+                        "primary": "#c6c6c9",
+                        "error": "#ffb4ab",
+                        "on-surface": "#e5e2e1",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "tertiary-fixed": "#ffdadb",
+                        "primary-fixed": "#e2e2e5",
+                        "surface-tint": "#c6c6c9",
+                        "inverse-on-surface": "#313030",
+                        "primary-container": "#1a1c1e",
+                        "background": "#141313",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed": "#e0e3e8",
+                        "on-secondary-fixed-variant": "#43474b",
+                        "on-primary-fixed-variant": "#454749",
+                        "primary-fixed-dim": "#c6c6c9",
+                        "surface-variant": "#353435",
+                        "surface-dim": "#141313",
+                        "on-error": "#690005",
+                        "secondary": "#c3c7cc",
+                        "outline-variant": "#44474a",
+                        "on-tertiary-container": "#eb4762",
+                        "surface-container-low": "#1c1b1b",
+                        "on-tertiary-fixed": "#40000e",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-bright": "#3a3939",
+                        "outline": "#8f9194",
+                        "secondary-fixed-dim": "#c3c7cc",
+                        "on-tertiary": "#67001c",
+                        "inverse-primary": "#5d5e61",
+                        "on-tertiary-fixed-variant": "#91002b",
+                        "on-surface-variant": "#c5c6ca",
+                        "tertiary": "#ffb2b7",
+                        "on-secondary": "#2d3135",
+                        "tertiary-container": "#41000e",
+                        "secondary-container": "#484c50",
+                        "on-background": "#e5e2e1",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-container": "#838486"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "micro": "2px",
+                        "edge-margin": "24px",
+                        "gutter": "12px",
+                        "container-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "header-primary": ["Space Grotesk"],
+                        "data-readout": ["JetBrains Mono"],
+                        "digital-display": ["monospace"],
+                        "micro-label": ["Space Grotesk"],
+                        "code-snippet": ["Fira Code"]
+                    },
+                    "fontSize": {
+                        "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                        "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .grid-overlay {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(225, 29, 72, 0.05) 50%);
+            background-size: 100% 4px;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+        .clipped-corner-sm {
+            clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-data-readout selection:bg-rose-600/30 overflow-x-hidden grid-overlay">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-3 h-12 bg-opacity-90 backdrop-blur-md bg-slate-950 dark:bg-[#1a1c1e] border-slate-800/60 border-[1px] border-b">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-rose-600 dark:text-rose-500 text-lg">sensors</span>
+<h1 class="font-['Space_Grotesk'] uppercase tracking-tighter text-[10px] font-bold text-rose-600 dark:text-rose-500">
+                P_88_EVO // STATUS: ACTIVE
+            </h1>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex flex-col items-end">
+<span class="text-[8px] font-header-primary text-rose-600 opacity-70">LAT: 40.7128</span>
+<span class="text-[8px] font-header-primary text-rose-600 opacity-70">LON: 74.0060</span>
+</div>
+<span class="material-symbols-outlined text-rose-600 dark:text-rose-500 text-lg">memory</span>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="pt-16 pb-20 px-4 min-h-screen">
+<!-- Hero Analytics Cluster -->
+<section class="mb-6">
+<div class="flex justify-between items-baseline mb-2">
+<h2 class="text-micro-label font-micro-label uppercase text-on-surface-variant">// STREAM_VITAL_SIGNS</h2>
+<span class="text-[8px] font-code-snippet text-rose-500">VER_88.0.1_STABLE</span>
+</div>
+<div class="relative bg-surface-container-low border border-slate-800/60 h-48 clipped-corner overflow-hidden p-3">
+<div class="absolute inset-0 scanline pointer-events-none opacity-20"></div>
+<!-- Chart Area -->
+<div class="relative h-full w-full flex items-end gap-1">
+<div class="absolute top-0 left-0 text-[8px] text-rose-600/50 leading-none">
+                        0xFFE0<br/>0xFFC0<br/>0xFFA0<br/>0xFF80
+                    </div>
+<!-- SVG Chart Overlay -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<polyline class="text-rose-600" fill="none" points="0,80 10,75 20,85 30,60 40,65 50,40 60,45 70,20 80,30 90,10 100,15" stroke="currentColor" stroke-width="0.5"></polyline>
+<polyline class="text-slate-700" fill="none" points="0,90 15,88 25,92 35,70 45,75 55,50 65,55 75,30 85,40 95,20 100,25" stroke="currentColor" stroke-width="0.5"></polyline>
+</svg>
+<!-- Real-time data overlay -->
+<div class="absolute right-2 bottom-2 bg-slate-950/80 p-2 border border-rose-600/40 text-right">
+<div class="text-[14px] font-digital-display text-rose-500">88.42 GHz</div>
+<div class="text-[8px] font-micro-label uppercase text-rose-600/60">Core_Thermal_Delta</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Node Latency Grid -->
+<section class="mb-6">
+<div class="grid grid-cols-2 gap-3">
+<!-- Node 01 -->
+<div class="bg-surface-container-high border border-slate-800 p-2 clipped-corner-sm relative">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[9px] font-header-primary text-on-surface-variant tracking-widest">NODE_01</span>
+<span class="material-symbols-outlined text-[12px] text-rose-500">radar</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="text-lg font-digital-display text-on-surface">12</span>
+<span class="text-[8px] text-on-surface-variant font-data-readout">ms</span>
+</div>
+<div class="mt-2 h-1 bg-slate-800 w-full relative">
+<div class="absolute top-0 left-0 h-full bg-rose-600 w-3/4"></div>
+</div>
+<span class="absolute bottom-1 right-1 text-[7px] text-slate-600 font-code-snippet">0xAD88</span>
+</div>
+<!-- Node 02 -->
+<div class="bg-surface-container-high border border-slate-800 p-2 clipped-corner-sm relative">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[9px] font-header-primary text-on-surface-variant tracking-widest">NODE_02</span>
+<span class="material-symbols-outlined text-[12px] text-rose-500" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="text-lg font-digital-display text-on-surface">08</span>
+<span class="text-[8px] text-on-surface-variant font-data-readout">ms</span>
+</div>
+<div class="mt-2 h-1 bg-slate-800 w-full relative">
+<div class="absolute top-0 left-0 h-full bg-rose-600 w-1/4"></div>
+</div>
+<span class="absolute bottom-1 right-1 text-[7px] text-slate-600 font-code-snippet">0xBC42</span>
+</div>
+</div>
+</section>
+<!-- Active Threat Matrix / Trend Indicators -->
+<section class="mb-6">
+<div class="bg-surface-container-low border border-slate-800/60 p-3">
+<h3 class="text-micro-label uppercase text-on-surface-variant mb-3 border-b border-slate-800 pb-1 flex justify-between">
+<span>Threat_Trend_Log</span>
+<span class="text-rose-500">[!] CRITICAL</span>
+</h3>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-[10px]">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-600 animate-pulse"></span>
+<span class="font-code-snippet text-slate-300">UNAUTHORIZED_AUTH_SYNC</span>
+</div>
+<div class="flex items-center text-rose-500 font-bold">
+<span class="material-symbols-outlined text-[10px]">trending_up</span>
+<span>+412%</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-[10px]">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+<span class="font-code-snippet text-slate-300">PKT_LOSS_SHADOW_OPS</span>
+</div>
+<div class="flex items-center text-slate-500 font-bold">
+<span class="material-symbols-outlined text-[10px]">trending_flat</span>
+<span>0.0%</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-[10px]">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+<span class="font-code-snippet text-slate-300">CRYPT_ENTROPY_DRIFT</span>
+</div>
+<div class="flex items-center text-rose-400 font-bold">
+<span class="material-symbols-outlined text-[10px]">trending_down</span>
+<span>-12.4%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Decorative Technical Module -->
+<section class="mt-8 flex justify-center opacity-40">
+<div class="w-full flex justify-between items-center px-4">
+<div class="h-[1px] bg-slate-800 flex-grow"></div>
+<div class="px-3 py-1 border border-slate-800 flex flex-col items-center">
+<span class="text-[6px] font-mono tracking-[0.4em] leading-none mb-1">DATA_INTEGRITY_SHIELD_V4</span>
+<div class="flex gap-1">
+<div class="w-1 h-1 bg-rose-600"></div>
+<div class="w-1 h-1 bg-slate-700"></div>
+<div class="w-1 h-1 bg-slate-700"></div>
+<div class="w-1 h-1 bg-rose-600"></div>
+</div>
+</div>
+<div class="h-[1px] bg-slate-800 flex-grow"></div>
+</div>
+</section>
+<!-- Tactical Image Feed -->
+<section class="mt-6 mb-4">
+<div class="relative aspect-video w-full border border-slate-800 overflow-hidden clipped-corner">
+<img alt="Tactical Data Feed" class="w-full h-full object-cover mix-blend-luminosity opacity-80" data-alt="A cinematic, low-angle shot of a high-tech server room bathed in cool slate-blue tones and sharp, raspberry-red laser line accents that scan across the floor and walls. The atmosphere is dense with digital data projections suspended in the air like holographic smoke. The lighting is moody and high-contrast, emphasizing the technical, tactical minimalism of the P_88_EVO brand aesthetic. Deep shadows and metallic textures create an authoritative and secure environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB59DiZgtjftiPDjLkAooG_R2zmjN2M2Z7RKh0lOMdMVIUMi0Ye1skgiHdkpCN1rC0abiL6bOzDvre0uWN7Oz01az29nIWabDhtV14_VGAPMgqKhRivZt-xYtDUoK4IQB9kzB_sz1TzHVz1SqUcEJrG6f-RGUAesM73nd7Mgg8lKaRPY287bR40R0u0PeNn58UqWk3NFnRRJ3_yaEO5Bxzq4mT9XxSu7c6TvV_kpRF84qhmd5pzWViga1gR99Nrx-Vjw_aemzQH-a0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute top-2 left-2 flex items-center gap-2">
+<span class="px-1 bg-rose-600 text-slate-950 text-[8px] font-bold">REC</span>
+<span class="text-[8px] text-rose-500 font-code-snippet">CAM_04_EXT</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 px-1 border-t border-slate-800 bg-slate-950 dark:bg-[#1a1c1e] no-shadows">
+<!-- CMD Tab -->
+<button class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 active:bg-rose-600/10 transition-colors duration-75 hover:bg-rose-900/20 hover:text-rose-300">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+<span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium mt-1">CMD</span>
+</button>
+<!-- SCAN (ACTIVE) -->
+<button class="flex flex-col items-center justify-center text-rose-500 bg-rose-500/5 border-t-2 border-rose-600 pt-1 pb-2 active:bg-rose-600/10 transition-colors duration-75">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">radar</span>
+<span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium mt-1">SCAN</span>
+</button>
+<!-- CRYPT -->
+<button class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 active:bg-rose-600/10 transition-colors duration-75 hover:bg-rose-900/20 hover:text-rose-300">
+<span class="material-symbols-outlined text-[20px]">enhanced_encryption</span>
+<span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium mt-1">CRYPT</span>
+</button>
+<!-- SYS -->
+<button class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 active:bg-rose-600/10 transition-colors duration-75 hover:bg-rose-900/20 hover:text-rose-300">
+<span class="material-symbols-outlined text-[20px]">settings_input_component</span>
+<span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium mt-1">SYS</span>
+</button>
+</nav>
+<!-- Global Coordinate Metadata Overlay -->
+<div class="fixed top-1/2 left-0 -translate-y-1/2 pointer-events-none px-1 flex flex-col gap-2 z-0 opacity-20">
+<span class="text-[6px] [writing-mode:vertical-lr] text-slate-500 font-code-snippet">0x00A1_992</span>
+<span class="text-[6px] [writing-mode:vertical-lr] text-slate-500 font-code-snippet">0x00A1_993</span>
+<span class="text-[6px] [writing-mode:vertical-lr] text-slate-500 font-code-snippet">0x00A1_994</span>
+</div>
+</body></html>

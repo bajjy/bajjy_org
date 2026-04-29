@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PROTOCOL_88_EVO_SYS | Tactical Stream</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#ffdadb",
+                    "on-background": "#e5e2e1",
+                    "on-primary-fixed-variant": "#454749",
+                    "secondary-fixed": "#e0e3e8",
+                    "surface-container-highest": "#353435",
+                    "on-tertiary": "#67001c",
+                    "on-surface": "#e5e2e1",
+                    "on-error": "#690005",
+                    "surface-dim": "#141313",
+                    "on-secondary-container": "#b9bcc1",
+                    "primary-fixed-dim": "#c6c6c9",
+                    "on-primary-fixed": "#1a1c1e",
+                    "error": "#ffb4ab",
+                    "surface-variant": "#353435",
+                    "outline-variant": "#44474a",
+                    "inverse-on-surface": "#313030",
+                    "inverse-surface": "#e5e2e1",
+                    "background": "#141313",
+                    "primary": "#c6c6c9",
+                    "on-secondary-fixed": "#181c20",
+                    "on-secondary": "#2d3135",
+                    "secondary-container": "#484c50",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-container": "#838486",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-low": "#1c1b1b",
+                    "surface-container-high": "#2a2a2a",
+                    "primary-container": "#1a1c1e",
+                    "on-surface-variant": "#c5c6ca",
+                    "tertiary": "#ffb2b7",
+                    "secondary": "#c3c7cc",
+                    "inverse-primary": "#5d5e61",
+                    "on-primary": "#2f3133",
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "tertiary-container": "#41000e",
+                    "outline": "#8f9194",
+                    "surface-tint": "#c6c6c9",
+                    "surface-bright": "#3a3939",
+                    "surface": "#141313",
+                    "on-tertiary-fixed-variant": "#91002b",
+                    "on-tertiary-fixed": "#40000e",
+                    "surface-container": "#201f1f",
+                    "on-secondary-fixed-variant": "#43474b",
+                    "secondary-fixed-dim": "#c3c7cc",
+                    "error-container": "#93000a",
+                    "primary-fixed": "#e2e2e5",
+                    "on-tertiary-container": "#eb4762"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "micro": "2px",
+                    "container-padding": "16px",
+                    "edge-margin": "24px",
+                    "gutter": "12px"
+            },
+            "fontFamily": {
+                    "header-primary": ["Space Grotesk"],
+                    "digital-display": ["monospace"],
+                    "code-snippet": ["Fira Code"],
+                    "micro-label": ["Space Grotesk"],
+                    "data-readout": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                    "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                    "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .clip-path-notch-right {
+            clip-path: polygon(0 0, 95% 0, 100% 15%, 100% 100%, 0 100%);
+        }
+        .clip-path-corner {
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+        .scanline-bg {
+            background: linear-gradient(to bottom, transparent 50%, rgba(26, 28, 30, 0.2) 50%);
+            background-size: 100% 4px;
+        }
+        .grid-overlay {
+            background-image: 
+                linear-gradient(to right, rgba(143, 145, 148, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(143, 145, 148, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .glitch-text:hover {
+            text-shadow: 2px 0 #e11d48, -2px 0 #2563eb;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-data-readout selection:bg-rose-500/30 overflow-hidden">
+<!-- Global Grid Overlay -->
+<div class="fixed inset-0 grid-overlay pointer-events-none z-0"></div>
+<div class="fixed inset-0 scanline-bg pointer-events-none z-0 opacity-30"></div>
+<!-- Top Navigation Shell -->
+<header class="bg-[#1a1c1e] dark:bg-[#0a0b0c] text-rose-600 dark:text-rose-500 font-['Space_Grotesk'] text-[10px] tracking-tighter uppercase leading-none docked full-width top-0 border-b-2 border-slate-800/50 flat no-shadows shadow-none flex justify-between items-center w-full px-4 h-14 z-50 backdrop-blur-md bg-opacity-90">
+<div class="flex items-center space-x-6">
+<div class="text-rose-600 dark:text-rose-500 font-black tracking-[0.2em] text-lg uppercase">
+                PROTOCOL_88_EVO_SYS
+            </div>
+<div class="hidden md:flex items-center space-x-4 border-l border-slate-800 pl-6 h-8">
+<span class="text-rose-500 border-b-2 border-rose-600 px-2 pb-1 cursor-crosshair">SENSORS</span>
+<span class="text-slate-500 px-2 pb-1 hover:text-slate-200 transition-colors cursor-pointer">TARGETING</span>
+<span class="text-slate-500 px-2 pb-1 hover:text-slate-200 transition-colors cursor-pointer">COMMS</span>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-2 bg-slate-900/50 px-3 py-1.5 border border-slate-800">
+<span class="material-symbols-outlined text-[14px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[10px] w-32 placeholder-slate-600" placeholder="QUERY_ID..." type="text"/>
+</div>
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined cursor-pointer hover:text-rose-400 transition-all" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-rose-400 transition-all" data-icon="terminal">terminal</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-rose-400 transition-all" data-icon="sensors_precision">sensors</span>
+<div class="w-8 h-8 bg-slate-800 border border-rose-500/50 flex items-center justify-center overflow-hidden">
+<img alt="OPERATOR_01_AVATAR" data-alt="A gritty, high-contrast digital portrait of a tactical operator seen through a semi-transparent HUD interface. The lighting is cold blue and sharp, highlighting technical gear and a visor that reflects scrolling data strings. The aesthetic is tactical cyberpunk with heavy grain and chromatic aberration, emphasizing a mission-critical and authoritative tone." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTq9aQ6sfVcAo-m9IkxzGshYmWw_0e_TMLTCDnU2O5j_A_J5p13EOpV5r2UjflpJJA9nLdmJ7g7VpnJP6WxlKbwbxBNrKefOnpUlwL5jPNb9q1GKbB8VLK2F7pQu_oV8w4GONmBc9znn1FN_rDxeRB5wKTtFk_hc_PIL2oI_NI4kAWGODwW4OHCX_0ntw866GC6hSD0WW-HY_w8YXddKdj62keyddHrwsE9bWuLoVm2Geh4k5XPFRCkDcnkFFPVeD0SoF_spJx75s"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-3.5rem)] overflow-hidden">
+<!-- Side Navigation Shell -->
+<aside class="bg-slate-950/95 dark:bg-slate-950/95 text-rose-600 dark:text-rose-500 font-['Space_Grotesk'] text-[11px] font-bold tracking-widest uppercase docked left-0 h-full w-64 border-r border-slate-800/60 fixed left-0 top-14 flex flex-col justify-between py-6 z-40 backdrop-blur-xl">
+<div class="px-4">
+<div class="text-rose-500 font-extrabold text-sm border-b border-rose-900/30 pb-2 mb-4">
+                    SYSTEM_RESOURCES
+                </div>
+<div class="space-y-1">
+<div class="flex items-center space-x-3 bg-rose-950/20 text-rose-500 border-l-4 border-rose-600 py-3 px-4 clip-path-notch-right hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="radar">radar</span>
+<span>SENSORS</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-500 py-3 px-4 border-l-4 border-transparent hover:border-slate-700 hover:text-slate-300 hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="settings_input_antenna">settings_input_antenna</span>
+<span>COMMS</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-500 py-3 px-4 border-l-4 border-transparent hover:border-slate-700 hover:text-slate-300 hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="crosshairs">double_arrow</span>
+<span>TARGETING</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-500 py-3 px-4 border-l-4 border-transparent hover:border-slate-700 hover:text-slate-300 hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+<span>UAV_FEED</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-500 py-3 px-4 border-l-4 border-transparent hover:border-slate-700 hover:text-slate-300 hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+<span>ENCRYPTION</span>
+</div>
+<div class="flex items-center space-x-3 text-slate-500 py-3 px-4 border-l-4 border-transparent hover:border-slate-700 hover:text-slate-300 hover:translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-icon="list_alt">list_alt</span>
+<span>LOGS</span>
+</div>
+</div>
+</div>
+<div class="px-4 space-y-4">
+<div class="p-3 bg-rose-900/10 border border-rose-900/40 clip-path-corner">
+<div class="text-rose-500 text-[10px] font-bold">LAT:40.7128/LON:74.0060</div>
+<div class="text-slate-400 text-[9px] mt-1 opacity-60">OPERATOR_CORE ACTIVE</div>
+</div>
+<button class="w-full bg-rose-600 text-on-background py-3 font-black clip-path-notch-right hover:bg-rose-500 transition-colors">
+                    DEPLOY_PROTOCOL
+                </button>
+<div class="flex justify-between pt-4 border-t border-slate-800/40">
+<div class="flex flex-col items-center text-slate-500 hover:text-rose-400 cursor-pointer">
+<span class="material-symbols-outlined text-[20px]" data-icon="memory">memory</span>
+<span class="text-[8px] mt-1">DIAG</span>
+</div>
+<div class="flex flex-col items-center text-slate-500 hover:text-rose-400 cursor-pointer">
+<span class="material-symbols-outlined text-[20px]" data-icon="help_outline">help_outline</span>
+<span class="text-[8px] mt-1">HELP</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 h-full overflow-y-auto bg-background p-container-padding relative z-10">
+<!-- HUD Header Readout -->
+<div class="flex justify-between items-end mb-6 border-b border-slate-800 pb-2">
+<div>
+<h1 class="font-header-primary text-header-primary text-on-background uppercase tracking-widest">Tactical Stream: ALPHA_NODE_01</h1>
+<p class="text-micro-label font-micro-label text-slate-500 mt-1">VER_88.0.1 // SECURITY_LEVEL_CRITICAL // LIVE_TELEMETRY</p>
+</div>
+<div class="flex space-x-6 text-right">
+<div>
+<div class="text-micro-label font-micro-label text-slate-500">SYSTEM_LOAD</div>
+<div class="font-digital-display text-primary text-[16px]">42.88%</div>
+</div>
+<div>
+<div class="text-micro-label font-micro-label text-rose-500">ALERT_LEVEL</div>
+<div class="font-digital-display text-rose-500 text-[16px]">STABLE</div>
+</div>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Analytics Hub -->
+<div class="col-span-12 lg:col-span-8 space-y-gutter">
+<!-- Multi-Chart View -->
+<div class="bg-surface-container border border-slate-800 p-4 relative group overflow-hidden">
+<div class="absolute top-2 right-2 text-micro-label text-slate-600">MOD_ID: CHART_A1</div>
+<h3 class="text-micro-label text-slate-300 font-bold mb-4 flex items-center">
+<span class="w-2 h-2 bg-rose-600 mr-2"></span>
+                            VECTOR_TRAJECTORY_ANALYTICS
+                        </h3>
+<div class="h-64 flex items-end space-x-1 pb-4 border-b border-slate-800/30">
+<!-- Mock Data Visualization -->
+<div class="flex-1 bg-rose-600/20 border-t border-rose-600 h-[60%] relative group-hover:bg-rose-600/30 transition-all"></div>
+<div class="flex-1 bg-slate-800/20 border-t border-slate-700 h-[45%]"></div>
+<div class="flex-1 bg-rose-600/40 border-t border-rose-600 h-[85%] relative">
+<div class="absolute -top-6 left-0 text-[8px] text-rose-500 font-bold">PEAK_TRANS</div>
+</div>
+<div class="flex-1 bg-slate-800/20 border-t border-slate-700 h-[30%]"></div>
+<div class="flex-1 bg-slate-800/20 border-t border-slate-700 h-[50%]"></div>
+<div class="flex-1 bg-rose-600/20 border-t border-rose-600 h-[70%]"></div>
+<div class="flex-1 bg-slate-800/20 border-t border-slate-700 h-[40%]"></div>
+<div class="flex-1 bg-rose-600/20 border-t border-rose-600 h-[65%]"></div>
+<div class="flex-1 bg-rose-600/60 border-t border-rose-600 h-[95%] relative animate-pulse">
+<div class="absolute -top-6 left-0 text-[8px] text-rose-500 font-bold">ALERT_CAP</div>
+</div>
+<div class="flex-1 bg-slate-800/20 border-t border-slate-700 h-[55%]"></div>
+</div>
+<div class="mt-4 grid grid-cols-4 gap-2">
+<div class="bg-surface-container-low border border-slate-800 p-2">
+<div class="text-micro-label text-slate-500">THROUGHPUT</div>
+<div class="text-data-readout font-bold text-on-background">1.82 GB/S</div>
+</div>
+<div class="bg-surface-container-low border border-slate-800 p-2">
+<div class="text-micro-label text-slate-500">LATENCY</div>
+<div class="text-data-readout font-bold text-rose-500">12.4 MS</div>
+</div>
+<div class="bg-surface-container-low border border-slate-800 p-2">
+<div class="text-micro-label text-slate-500">STABILITY</div>
+<div class="text-data-readout font-bold text-on-background">99.98%</div>
+</div>
+<div class="bg-surface-container-low border border-slate-800 p-2">
+<div class="text-micro-label text-slate-500">PACKET_LOSS</div>
+<div class="text-data-readout font-bold text-on-background">0.002%</div>
+</div>
+</div>
+</div>
+<!-- Sensor Metrics Table -->
+<div class="bg-surface-container border border-slate-800 relative">
+<div class="p-3 border-b border-slate-800 flex justify-between items-center bg-surface-container-high/50">
+<span class="text-micro-label font-bold text-on-background">ACTIVE_SENSOR_NODES [LIST_88]</span>
+<span class="text-micro-label text-slate-500">LAT: 34.0522 / LON: 118.2437</span>
+</div>
+<table class="w-full text-left text-data-readout border-collapse">
+<thead>
+<tr class="border-b border-slate-800 bg-slate-900/30">
+<th class="p-3 text-micro-label text-slate-400 font-normal">NODE_ID</th>
+<th class="p-3 text-micro-label text-slate-400 font-normal">STATUS</th>
+<th class="p-3 text-micro-label text-slate-400 font-normal">FREQ_HZ</th>
+<th class="p-3 text-micro-label text-slate-400 font-normal">TEMP</th>
+<th class="p-3 text-micro-label text-slate-400 font-normal">SIGNAL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors">
+<td class="p-3 font-code-snippet text-rose-400">#SN-0192</td>
+<td class="p-3"><span class="bg-rose-900/30 text-rose-500 text-[10px] px-2 py-0.5 border border-rose-900/50 uppercase">Active</span></td>
+<td class="p-3">8.421 GHz</td>
+<td class="p-3">34.2°C</td>
+<td class="p-3 text-rose-500">CRITICAL</td>
+</tr>
+<tr class="border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors">
+<td class="p-3 font-code-snippet text-primary">#SN-0205</td>
+<td class="p-3"><span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 border border-slate-700 uppercase">Idle</span></td>
+<td class="p-3">4.108 GHz</td>
+<td class="p-3">28.1°C</td>
+<td class="p-3">NOMINAL</td>
+</tr>
+<tr class="border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors">
+<td class="p-3 font-code-snippet text-primary">#SN-0211</td>
+<td class="p-3"><span class="bg-rose-900/30 text-rose-500 text-[10px] px-2 py-0.5 border border-rose-900/50 uppercase">Active</span></td>
+<td class="p-3">9.004 GHz</td>
+<td class="p-3">41.5°C</td>
+<td class="p-3">NOMINAL</td>
+</tr>
+<tr class="border-b border-slate-800/50 hover:bg-slate-800/20 transition-colors">
+<td class="p-3 font-code-snippet text-primary">#SN-0224</td>
+<td class="p-3"><span class="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 border border-slate-700 uppercase">Idle</span></td>
+<td class="p-3">2.887 GHz</td>
+<td class="p-3">24.0°C</td>
+<td class="p-3">LOW_PWR</td>
+</tr>
+</tbody>
+</table>
+<div class="p-2 text-center border-t border-slate-800">
+<button class="text-micro-label text-slate-500 hover:text-on-background transition-colors uppercase tracking-widest">Load Full Sensor Manifest</button>
+</div>
+</div>
+</div>
+<!-- Secondary Panel: UAV & Comms -->
+<div class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- Live Feed / UAV -->
+<div class="bg-surface-container border border-slate-800 p-2 relative">
+<div class="absolute top-4 left-4 bg-rose-600 text-white text-[8px] font-bold px-1.5 py-0.5 tracking-tighter">LIVE_FEED</div>
+<div class="absolute bottom-4 right-4 text-micro-label text-slate-400 font-mono">X: 192.4 | Y: 88.2</div>
+<div class="aspect-video bg-slate-900 border border-slate-800 relative overflow-hidden group">
+<img alt="UAV_SURVEILLANCE_IMAGE" class="w-full h-full object-cover grayscale contrast-125 opacity-60" data-alt="A gritty, bird's-eye view surveillance photograph of an industrial complex at night, rendered in high-contrast thermal imaging style. The image is overlayed with technical crosshairs, motion detection brackets, and tiny coordinate text. The color scheme is dominated by deep slates and greys with sharp, glowing raspberry-red highlights indicating heat signatures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwlJb-rQ6YxpjE8EzHjkHUYcpzirdSB3Ac1Zpff0pHqp5RmlrYBnbty_wOiGQySkzGnb1WMSv3zJ1x9_gemauJtoYBX2r83vnhU5CB-xSNbXCJjI8Z6MWkVud8Gl_vKuUT4JaIuWwchJUYTYVcUrmcresyq1PEma-6PzvgHSBlRVXL3C0I2O_ZZGmA2A7phjHqUGyEqSGzrGfRp67gFfWxWDUu9loXVEne9b38ueMZ2VP3S4OwpzWS1duH1mXFSPbybTvmNsY_kwI"/>
+<div class="absolute inset-0 border-[20px] border-transparent group-hover:border-rose-600/10 transition-all pointer-events-none"></div>
+<div class="absolute top-1/2 left-0 w-full h-px bg-rose-600/40"></div>
+<div class="absolute top-0 left-1/2 w-px h-full bg-rose-600/40"></div>
+</div>
+<div class="mt-2 flex justify-between items-center px-1">
+<span class="text-micro-label font-bold text-rose-500">UAV_NORTH_018</span>
+<div class="flex space-x-1">
+<span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-rose-900"></span>
+<span class="w-1.5 h-1.5 rounded-full bg-rose-900"></span>
+</div>
+</div>
+</div>
+<!-- Comms Feed / Logs -->
+<div class="bg-surface-container border border-slate-800 p-4">
+<h3 class="text-micro-label text-slate-300 font-bold mb-3 border-b border-slate-800 pb-2">ENCRYPTED_COMMS_LOG</h3>
+<div class="space-y-3 font-code-snippet text-code-snippet">
+<div class="border-l-2 border-rose-600 pl-3 py-1">
+<div class="text-rose-500 text-[9px] mb-1">08:42:11 | SYSTEM_CMD</div>
+<p class="text-slate-300">INITIATING PHASE_02 ENCRYPTION. HANDSHAKE SUCCESSFUL.</p>
+</div>
+<div class="border-l-2 border-slate-700 pl-3 py-1">
+<div class="text-slate-500 text-[9px] mb-1">08:42:15 | NODE_ALPHA</div>
+<p class="text-slate-500 italic">PACKET RECEIVED. ALL CHANNELS STABILIZED.</p>
+</div>
+<div class="border-l-2 border-rose-600 pl-3 py-1 bg-rose-900/10">
+<div class="text-rose-500 text-[9px] mb-1">08:42:28 | ALERT_WATCH</div>
+<p class="text-rose-400 font-bold">UNAUTHORIZED ACCESS ATTEMPT DETECTED AT PORT_88.</p>
+</div>
+<div class="border-l-2 border-slate-700 pl-3 py-1">
+<div class="text-slate-500 text-[9px] mb-1">08:43:01 | SYSTEM_CMD</div>
+<p class="text-slate-300">REROUTING VIA PROTOCOL_88_EVO BACKPLANE.</p>
+</div>
+</div>
+<div class="mt-4 flex">
+<input class="w-full bg-background border border-slate-800 text-code-snippet p-2 focus:border-rose-600 focus:ring-0" placeholder="SEND_ENCRYPTED_MSG..." type="text"/>
+<button class="bg-rose-900/20 border border-rose-600 border-l-0 px-3 text-rose-500 hover:bg-rose-600 hover:text-white transition-all">
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+<!-- System Status Chips -->
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface-container border border-slate-800 p-3 flex items-center justify-between">
+<span class="text-micro-label text-slate-500">POWER</span>
+<span class="text-data-readout text-primary">88%</span>
+</div>
+<div class="bg-surface-container border border-slate-800 p-3 flex items-center justify-between">
+<span class="text-micro-label text-slate-500">TEMP</span>
+<span class="text-data-readout text-rose-500">42°C</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Bottom Metadata -->
+<div class="mt-12 opacity-30 pointer-events-none select-none">
+<div class="flex justify-between font-code-snippet text-[8px] tracking-[0.3em] uppercase">
+<span>X88_ROOT_ACCESS_LOGGED</span>
+<span>KERNEL_REVISION_88_00_EVO</span>
+<span>TIMESTAMP: 2024.11.24.0844.02</span>
+</div>
+</div>
+</main>
+</div>
+<!-- Floating Action Button (Contextual: Home/Dashboard Only) -->
+<button class="fixed bottom-8 right-8 bg-rose-600 text-white w-14 h-14 rounded-none clip-path-notch-right shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform" data-icon="terminal">terminal</span>
+<div class="absolute -top-1 -right-1 w-3 h-3 bg-white border border-rose-600"></div>
+</button>
+</body></html>

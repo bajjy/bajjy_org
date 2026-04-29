@@ -1,0 +1,34 @@
+{
+  "name": "bajjy-org",
+  "version": "0.1.0",
+  "description": "bajjy.org — personal site + production dossier. Vite + Vue 3 frontend, thin Express API. Built on the PROTOCOL_88_EVO design system.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c yellow,cyan \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "node --watch src/app.js",
+    "dev:web": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "compression": "^1.7.5",
+    "express": "^4.21.2",
+    "front-matter": "^4.0.2",
+    "marked": "^14.1.4",
+    "morgan": "^1.10.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "concurrently": "^9.1.0",
+    "vite": "^6.0.0"
+  },
+  "license": "MIT",
+  "author": "Bajjy <bajjy.xilo@gmail.com>",
+  "homepage": "https://bajjy.org"
+}

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#181c20",
+                      "error-container": "#93000a",
+                      "on-secondary-container": "#b9bcc1",
+                      "surface-container-highest": "#353435",
+                      "on-primary-fixed": "#1a1c1e",
+                      "on-error-container": "#ffdad6",
+                      "surface-container": "#201f1f",
+                      "surface": "#141313",
+                      "on-primary": "#2f3133",
+                      "primary": "#c6c6c9",
+                      "error": "#ffb4ab",
+                      "on-surface": "#e5e2e1",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "tertiary-fixed": "#ffdadb",
+                      "primary-fixed": "#e2e2e5",
+                      "surface-tint": "#c6c6c9",
+                      "inverse-on-surface": "#313030",
+                      "primary-container": "#1a1c1e",
+                      "background": "#141313",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed": "#e0e3e8",
+                      "on-secondary-fixed-variant": "#43474b",
+                      "on-primary-fixed-variant": "#454749",
+                      "primary-fixed-dim": "#c6c6c9",
+                      "surface-variant": "#353435",
+                      "surface-dim": "#141313",
+                      "on-error": "#690005",
+                      "secondary": "#c3c7cc",
+                      "outline-variant": "#44474a",
+                      "on-tertiary-container": "#eb4762",
+                      "surface-container-low": "#1c1b1b",
+                      "on-tertiary-fixed": "#40000e",
+                      "inverse-surface": "#e5e2e1",
+                      "surface-bright": "#3a3939",
+                      "outline": "#8f9194",
+                      "secondary-fixed-dim": "#c3c7cc",
+                      "on-tertiary": "#67001c",
+                      "inverse-primary": "#5d5e61",
+                      "on-tertiary-fixed-variant": "#91002b",
+                      "on-surface-variant": "#c5c6ca",
+                      "tertiary": "#ffb2b7",
+                      "on-secondary": "#2d3135",
+                      "tertiary-container": "#41000e",
+                      "secondary-container": "#484c50",
+                      "on-background": "#e5e2e1",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-primary-container": "#838486"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "micro": "2px",
+                      "edge-margin": "24px",
+                      "gutter": "12px",
+                      "container-padding": "16px"
+              },
+              "fontFamily": {
+                      "header-primary": ["Space Grotesk"],
+                      "data-readout": ["JetBrains Mono"],
+                      "digital-display": ["monospace"],
+                      "micro-label": ["Space Grotesk"],
+                      "code-snippet": ["Fira Code"]
+              },
+              "fontSize": {
+                      "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                      "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                      "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+        }
+        .notched-module {
+            clip-path: polygon(0 4px, 4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px));
+        }
+        .scanline-bg {
+            background: linear-gradient(to bottom, transparent 50%, rgba(20, 19, 19, 0.5) 50%);
+            background-size: 100% 4px;
+        }
+        .grid-overlay {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-data-readout selection:bg-rose-600 selection:text-white overflow-hidden">
+
+    <!-- Global Grid Overlay -->
+    <div class="fixed inset-0 grid-overlay pointer-events-none z-0"></div>
+    <div class="fixed inset-0 scanline-bg pointer-events-none z-0 opacity-20"></div>
+
+    <!-- TopAppBar -->
+    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-3 h-12 bg-slate-950 dark:bg-[#1a1c1e] bg-opacity-90 backdrop-blur-md border-b border-slate-800/60 border-[1px]">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-rose-600 dark:text-rose-500 text-sm">sensors</span>
+            <h1 class="font-['Space_Grotesk'] uppercase tracking-tighter text-[10px] font-bold text-rose-600 dark:text-rose-500">P_88_EVO // STATUS: ACTIVE</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex flex-col items-end">
+                <span class="font-micro-label text-slate-500">LAT: 40.7128</span>
+                <span class="font-micro-label text-slate-500">LON: 74.0060</span>
+            </div>
+            <span class="material-symbols-outlined text-rose-600 dark:text-rose-500 text-sm cursor-crosshair active:scale-95">memory</span>
+        </div>
+    </header>
+
+    <!-- Main Content Canvas -->
+    <main class="relative z-10 pt-12 pb-16 h-screen flex flex-col overflow-hidden">
+        
+        <!-- Upper Module: Telemetry Clusters -->
+        <div class="px-4 py-2 flex justify-between border-b border-slate-800/40">
+            <div class="space-y-1">
+                <div class="flex items-center gap-1">
+                    <span class="w-1 h-1 bg-rose-600"></span>
+                    <span class="text-[8px] font-micro-label text-on-surface-variant uppercase">Subsystem_Pulse</span>
+                </div>
+                <div class="font-digital-display text-rose-500 text-sm">188.42_Hz</div>
+            </div>
+            <div class="space-y-1 text-right">
+                <div class="flex items-center gap-1 justify-end">
+                    <span class="text-[8px] font-micro-label text-on-surface-variant uppercase">Core_Temp</span>
+                    <span class="w-1 h-1 bg-rose-600"></span>
+                </div>
+                <div class="font-digital-display text-primary text-sm">34.02°C</div>
+            </div>
+        </div>
+
+        <!-- Central 3D Wireframe Visual Area -->
+        <div class="flex-grow relative flex items-center justify-center p-6 overflow-hidden">
+            <!-- Vector Separators / Brackets -->
+            <div class="absolute top-4 left-4 w-8 h-8 border-t border-l border-rose-600/50"></div>
+            <div class="absolute top-4 right-4 w-8 h-8 border-t border-r border-rose-600/50"></div>
+            <div class="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-rose-600/50"></div>
+            <div class="absolute bottom-4 right-4 w-8 h-8 border-b border-r border-rose-600/50"></div>
+
+            <!-- Wireframe Asset -->
+            <div class="relative w-full aspect-square max-w-[280px] group">
+                <img src="https://public.readdy.ai/ai/img_res/61d2b7754f762f026a76e73775b1b446.jpg" 
+                     alt="Technical Wireframe" 
+                     class="w-full h-full object-contain opacity-80 mix-blend-screen"
+                     data-alt="A highly detailed 3D technical wireframe of a complex geometric core, rendered in a tactical HUD aesthetic. The visualization features glowing vector lines, rotating circuit paths, and floating numerical data points. The palette is dominated by deep charcoal blacks and sharp raspberry-red accents, set against a background of faint grid patterns and scanning artifacts. The overall mood is cold, analytical, and authoritative.">
+                
+                <!-- Floating Metadata Chips -->
+                <div class="absolute -top-2 -right-2 bg-surface-container notched-module border border-outline/20 px-2 py-0.5 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[10px] text-rose-500">token</span>
+                    <span class="text-micro-label text-on-surface uppercase">Auth_Key: 0x8F</span>
+                </div>
+                <div class="absolute bottom-10 -left-4 bg-surface-container notched-module border border-outline/20 px-2 py-0.5 flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[10px] text-primary">analytics</span>
+                    <span class="text-micro-label text-on-surface uppercase">Vector_Sync: 98%</span>
+                </div>
+            </div>
+
+            <!-- Background Junk Data -->
+            <div class="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none p-2 font-code-snippet text-[8px] leading-tight overflow-hidden">
+                <p>01001010 01101111 01101000 01101110 00100000 01010111 01101001 01100011 01101011</p>
+                <p class="text-right">MEM_ADDR: 0x004F92A -> REDIRECTING_TO_GATEWAY_B</p>
+                <p>KERNEL_PANIC_PREVENT_SYS_ACTIVE [VER_88.0.1]</p>
+                <p class="text-right">LAT_OFFSET: +0.0000421 | SPEED: 11.2 KM/S</p>
+            </div>
+        </div>
+
+        <!-- Status Log Module -->
+        <div class="h-32 bg-slate-950/80 border-y border-slate-800/60 overflow-hidden relative">
+            <div class="absolute top-0 left-0 bg-rose-600 text-white font-micro-label px-2 py-0.5 z-10">LIVE_LOGS</div>
+            <div class="p-3 pt-6 space-y-1 font-data-readout text-[9px] text-on-surface-variant overflow-y-auto h-full">
+                <div class="flex gap-2">
+                    <span class="text-rose-500">[14:22:01]</span>
+                    <span>ENCRYPTION_LAYER_01_DEPOLYED... <span class="text-emerald-500">SUCCESS</span></span>
+                </div>
+                <div class="flex gap-2">
+                    <span class="text-rose-500">[14:22:05]</span>
+                    <span>HANDSHAKE_INITIATED WITH EXTERNAL_NODE_88...</span>
+                </div>
+                <div class="flex gap-2 opacity-60">
+                    <span class="text-rose-500">[14:22:12]</span>
+                    <span>SCANNING_FOR_INTRUSIONS... NO_THREATS_DETECTED</span>
+                </div>
+                <div class="flex gap-2 opacity-40">
+                    <span class="text-rose-500">[14:22:18]</span>
+                    <span>MEM_ALLOCATION: 44.2GB / 128GB...</span>
+                </div>
+                <div class="flex gap-2 opacity-20">
+                    <span class="text-rose-500">[14:22:25]</span>
+                    <span>UPDATING_TELEMETRY_STREAM_A_02...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Area -->
+        <div class="p-6 flex flex-col items-center justify-center gap-4">
+            <div class="w-full flex justify-between items-center px-2">
+                <span class="text-micro-label text-slate-500 uppercase">Authorization Required</span>
+                <span class="text-micro-label text-rose-500 uppercase">Level_4_Only</span>
+            </div>
+            
+            <button class="group relative w-full h-14 bg-rose-600 hover:bg-rose-700 transition-all duration-200 active:scale-[0.98] clipped-corner flex items-center justify-center gap-3">
+                <div class="absolute inset-0 border border-rose-400 opacity-30 translate-x-1 translate-y-1 clipped-corner pointer-events-none"></div>
+                <span class="material-symbols-outlined text-white" data-weight="fill">terminal</span>
+                <span class="font-header-primary text-white tracking-[0.2em] uppercase">SCRAM_INIT</span>
+                <div class="absolute right-4 flex gap-1 opacity-50 group-hover:opacity-100 transition-opacity">
+                    <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+                    <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                </div>
+            </button>
+            
+            <div class="flex gap-2 w-full">
+                <div class="flex-grow h-1 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="w-2/3 h-full bg-rose-600"></div>
+                </div>
+                <span class="text-micro-label text-slate-500 uppercase">SYS_LOAD</span>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- BottomNavBar -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 px-1 border-t border-slate-800 bg-slate-950 dark:bg-[#1a1c1e] no-shadows">
+        <a href="#" class="flex flex-col items-center justify-center text-rose-500 bg-rose-500/5 border-t-2 border-rose-600 pt-1 pb-2 transition-colors duration-75 flex-1">
+            <span class="material-symbols-outlined text-xl mb-1">terminal</span>
+            <span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium">CMD</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 hover:bg-rose-900/20 hover:text-rose-300 transition-colors duration-75 flex-1">
+            <span class="material-symbols-outlined text-xl mb-1">radar</span>
+            <span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium">SCAN</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 hover:bg-rose-900/20 hover:text-rose-300 transition-colors duration-75 flex-1">
+            <span class="material-symbols-outlined text-xl mb-1">enhanced_encryption</span>
+            <span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium">CRYPT</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 hover:bg-rose-900/20 hover:text-rose-300 transition-colors duration-75 flex-1">
+            <span class="material-symbols-outlined text-xl mb-1">settings_input_component</span>
+            <span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium">SYS</span>
+        </a>
+    </nav>
+
+</body>
+</html></style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body></body></html>

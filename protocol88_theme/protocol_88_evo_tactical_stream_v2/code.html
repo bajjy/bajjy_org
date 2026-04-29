@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PROTOCOL_88_EVO | TACTICAL_STREAM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#454749",
+                        "tertiary-container": "#41000e",
+                        "secondary-container": "#484c50",
+                        "surface-bright": "#3a3939",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#353435",
+                        "outline-variant": "#44474a",
+                        "on-primary-container": "#838486",
+                        "surface-dim": "#141313",
+                        "on-secondary-fixed-variant": "#43474b",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-tint": "#c6c6c9",
+                        "on-tertiary": "#67001c",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "tertiary-fixed": "#ffdadb",
+                        "primary-fixed": "#e2e2e5",
+                        "surface-container-high": "#2a2a2a",
+                        "inverse-primary": "#5d5e61",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#c6c6c9",
+                        "primary": "#c6c6c9",
+                        "outline": "#8f9194",
+                        "on-secondary-fixed": "#181c20",
+                        "on-tertiary-fixed-variant": "#91002b",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed": "#40000e",
+                        "secondary-fixed-dim": "#c3c7cc",
+                        "on-secondary": "#2d3135",
+                        "inverse-on-surface": "#313030",
+                        "background": "#141313",
+                        "surface-variant": "#353435",
+                        "secondary": "#c3c7cc",
+                        "primary-container": "#1a1c1e",
+                        "on-primary-fixed": "#1a1c1e",
+                        "on-surface-variant": "#c5c6ca",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e0e3e8",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container": "#201f1f",
+                        "tertiary": "#ffb2b7",
+                        "surface": "#141313",
+                        "on-tertiary-container": "#eb4762",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary-container": "#b9bcc1",
+                        "on-primary": "#2f3133",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "edge-margin": "24px",
+                        "unit": "4px",
+                        "container-padding": "16px",
+                        "gutter": "12px",
+                        "micro": "2px"
+                    },
+                    "fontFamily": {
+                        "micro-label": ["Space Grotesk"],
+                        "header-primary": ["Space Grotesk"],
+                        "data-readout": ["JetBrains Mono"],
+                        "digital-display": ["monospace"],
+                        "code-snippet": ["Fira Code"]
+                    },
+                    "fontSize": {
+                        "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                        "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 18px;
+        }
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(20, 19, 19, 0.5) 50%);
+            background-size: 100% 4px;
+        }
+        .grid-bg {
+            background-image: linear-gradient(rgba(143, 145, 148, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(143, 145, 148, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+        .bracket-x::before { content: '['; margin-right: 4px; opacity: 0.5; }
+        .bracket-x::after { content: ']'; margin-left: 4px; opacity: 0.5; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-data-readout selection:bg-on-tertiary-container selection:text-white overflow-hidden">
+<!-- Global Grid Overlay -->
+<div class="fixed inset-0 grid-bg pointer-events-none z-0"></div>
+<div class="fixed inset-0 scanline pointer-events-none z-10 opacity-20"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-3 h-12 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/40">
+<div class="flex items-center space-x-6">
+<span class="text-lg font-black text-rose-600 tracking-tighter">PROTOCOL_88_EVO</span>
+<nav class="hidden md:flex space-x-4 h-full items-center">
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">SENSORS</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">UPLINK</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-rose-500 border-b border-rose-600 pb-1" href="#">TACTICAL</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">LOGS</a>
+</nav>
+</div>
+<div class="flex items-center space-x-3">
+<div class="hidden lg:flex items-center bg-surface-container-lowest border border-slate-800 px-2 py-1 rounded">
+<span class="font-code-snippet text-micro-label text-rose-500 mr-2">ENCRYPT_LVL: ALPHA-9</span>
+<span class="w-16 h-1 bg-slate-800 rounded-full relative overflow-hidden">
+<div class="absolute inset-y-0 left-0 bg-rose-600 w-3/4"></div>
+</span>
+</div>
+<div class="flex items-center space-x-1">
+<button class="p-1 hover:bg-rose-950/20 hover:text-rose-400 transition-all scale-95 duration-75">
+<span class="material-symbols-outlined">settings_input_component</span>
+</button>
+<button class="p-1 hover:bg-rose-950/20 hover:text-rose-400 transition-all scale-95 duration-75">
+<span class="material-symbols-outlined">terminal</span>
+</button>
+<button class="p-1 hover:bg-rose-950/20 hover:text-rose-400 transition-all scale-95 duration-75">
+<span class="material-symbols-outlined">security</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-12 h-[calc(100vh-48px)] w-64 flex flex-col border-r border-slate-800 bg-slate-950/95 z-40">
+<div class="p-4 border-b border-slate-800/50">
+<div class="flex items-center space-x-3 mb-2">
+<div class="w-10 h-10 border border-rose-600 p-0.5">
+<img alt="Admin Avatar" class="w-full h-full object-cover grayscale brightness-75 contrast-125" data-alt="A macro photography shot of a high-tech computer chip with glowing red circuitry traces under dark blue atmospheric lighting. The image captures intricate hardware details with a shallow depth of field, emphasizing the technical precision and advanced surveillance aesthetic. The color scheme is dominated by deep blacks and vibrant raspberry-red light paths." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxXDuSs3DHGTPPW_3LwnLWlo3u32F43COc3ylQwyeoXFJmav9J0Aoew6_1fQcTvyJX0SLq7oiXWRp1zYHgcan23bwffmGUQpUFDWDExTiTeQ6c1TRzjjeXz5olXfeN9NhsKC2QEWYUGn4BXy6gY5umFIaJq5rPUDD9AOZWHkmAESLY2uY5g-2aDxF7BjKdgk-BnWnT332N6nULbElLFb8M1j1j9CockVzwprTi4P7Nyi7VfdvQs_ilhom3EQ3gg18r3OnMF6O5ioM"/>
+</div>
+<div>
+<div class="text-rose-500 font-bold font-mono text-[12px]">OPERATOR_01</div>
+<div class="font-mono text-[10px] text-slate-500 leading-tight">LAT: 40.7128 / LON: 74.0060</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-2">
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-mono text-[10px] leading-tight">OVERVIEW</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined">enhanced_encryption</span>
+<span class="font-mono text-[10px] leading-tight">ENCRYPTION</span>
+</a>
+<a class="bg-rose-600/10 text-rose-500 border-l-2 border-rose-600 flex items-center px-4 py-3 space-x-3 transition-all" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-mono text-[10px] leading-tight">NETWORK</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined">android_fingerprint</span>
+<span class="font-mono text-[10px] leading-tight">VULN_SCAN</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-mono text-[10px] leading-tight">MEMORY</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined">power_settings_new</span>
+<span class="font-mono text-[10px] leading-tight text-rose-900">TERMINATE</span>
+</a>
+</nav>
+<div class="p-4 bg-slate-900/30 border-t border-slate-800/50">
+<button class="w-full py-2 bg-rose-900/20 border border-rose-600 text-rose-500 font-mono text-[10px] tracking-tighter hover:bg-rose-600 hover:text-white transition-all clipped-corner">
+                INITIATE_BREACH
+            </button>
+<div class="mt-4 flex justify-between">
+<div class="flex flex-col">
+<span class="material-symbols-outlined text-slate-600">analytics</span>
+<span class="font-mono text-[8px] text-slate-500 mt-1">SYS_STATUS</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="material-symbols-outlined text-slate-600">developer_board</span>
+<span class="font-mono text-[8px] text-slate-500 mt-1">VER_88.0.1</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-12 p-3 h-[calc(100vh-48px)] relative overflow-hidden">
+<div class="grid grid-cols-12 gap-3 h-full">
+<!-- Tactical Feed (Main) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col space-y-3">
+<!-- Live Stream Panel -->
+<div class="flex-1 bg-surface-container-low border border-slate-800/50 relative overflow-hidden group">
+<div class="absolute top-2 left-2 z-20 flex space-x-2">
+<span class="px-2 py-0.5 bg-rose-600 text-white font-mono text-[9px] tracking-widest flex items-center">
+<span class="w-1.5 h-1.5 bg-white rounded-full mr-1 animate-pulse"></span> LIVE_FEED: CAM_088
+                        </span>
+<span class="px-2 py-0.5 bg-black/60 backdrop-blur-sm border border-slate-700 text-slate-300 font-mono text-[9px]">
+                            COORD: 51.5074° N, 0.1278° W
+                        </span>
+</div>
+<div class="absolute bottom-2 right-2 z-20">
+<span class="font-mono text-[9px] text-rose-500/50">ISO_3200 // SHUTTER_1/50 // f2.8</span>
+</div>
+<img alt="Satellite View" class="w-full h-full object-cover grayscale opacity-80 mix-blend-screen group-hover:scale-105 transition-transform duration-1000" data-alt="A high-altitude, satellite-perspective tactical map of a dense urban environment at night. The city is illuminated with artificial lights and overlayed with glowing digital wireframes and red-accented targeting markers. The visual style is high-contrast, technical, and moody, evoking a surveillance-state interface. Data-readouts and micro-metadata strings are visible in the corners of the digital feed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsZ9H3rAc9hRdtIFVuY9IVRS0xeGUyZGvZ13kpq6X0IWGnLiuc6brxpEizaiYrGiEuoJ_yuG2OtGdsc4MZyd4H2hFRtIKcoY_sctG0Dd3_W-DExmHYN1EL6UVMScr2EfryYp1NgAm43YVpfTqANrWA7m7jIr1-Hm7gprqwMsL684r_EeQ9iCWxR60XMLUGh-2DFQ52cML_lNgSZffLCh2uAigO7UWeQ0PDxihZvSXYekjo-brB0i-IlL_iKR_qeahmHOn1mnQWPJk"/>
+<div class="absolute inset-0 border-[20px] border-slate-950/20 pointer-events-none"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent pointer-events-none"></div>
+</div>
+<!-- Metadata Hub (Bento) -->
+<div class="h-48 grid grid-cols-4 gap-3">
+<div class="col-span-2 bg-surface-container-high border border-slate-800 p-3 relative overflow-hidden">
+<div class="text-micro-label text-slate-500 mb-2 flex justify-between items-center">
+<span>SENS_INTERCEPT_STREAM</span>
+<span class="text-rose-500">ACTIVE_SCAN</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center justify-between font-code-snippet text-[10px] text-slate-400 border-b border-slate-800/40 pb-1">
+<span>PACKET_0x8F_22</span>
+<span class="text-rose-600">DECRYPTED</span>
+</div>
+<div class="flex items-center justify-between font-code-snippet text-[10px] text-slate-400 border-b border-slate-800/40 pb-1">
+<span>PACKET_0x8F_23</span>
+<span class="text-slate-600">PENDING...</span>
+</div>
+<div class="flex items-center justify-between font-code-snippet text-[10px] text-slate-400 border-b border-slate-800/40 pb-1">
+<span>PACKET_0x8F_24</span>
+<span class="text-rose-600">DECRYPTED</span>
+</div>
+<div class="flex items-center justify-between font-code-snippet text-[10px] text-slate-400 border-b border-slate-800/40 pb-1">
+<span>PACKET_0x8F_25</span>
+<span class="text-rose-600">DECRYPTED</span>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-[80px]">security</span>
+</div>
+</div>
+<div class="col-span-1 bg-surface-container-high border border-slate-800 p-3 flex flex-col justify-between">
+<div class="text-micro-label text-slate-500">UPLINK_STABILITY</div>
+<div class="text-digital-display text-rose-500">98.4<span class="text-[12px]">%</span></div>
+<div class="w-full h-1 bg-slate-800 rounded-full">
+<div class="h-full bg-rose-600 w-[98%]"></div>
+</div>
+</div>
+<div class="col-span-1 bg-tertiary-container border border-rose-900/50 p-3 flex flex-col justify-between group cursor-pointer hover:bg-tertiary">
+<div class="text-micro-label text-white/70">CRITICAL_ALERTS</div>
+<div class="text-digital-display text-white group-hover:text-black">04</div>
+<div class="flex space-x-1">
+<div class="w-1.5 h-1.5 bg-white/50"></div>
+<div class="w-1.5 h-1.5 bg-white"></div>
+<div class="w-1.5 h-1.5 bg-white"></div>
+<div class="w-1.5 h-1.5 bg-white"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Analytics Panel -->
+<div class="hidden lg:col-span-4 lg:flex flex-col space-y-3 h-full">
+<!-- System Diagnostics -->
+<div class="flex-1 bg-surface-container border border-slate-800 p-3 flex flex-col">
+<div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
+<h2 class="font-header-primary text-micro-label text-rose-500 uppercase">System_Telemetry</h2>
+<span class="text-micro-label text-slate-600">REFRESH: 0.2ms</span>
+</div>
+<div class="space-y-4 flex-1 overflow-y-auto pr-1">
+<!-- Stat Card 1 -->
+<div class="p-2 border border-slate-800/50 bg-surface-container-low hover:border-rose-600/50 transition-colors">
+<div class="flex justify-between items-center mb-1">
+<span class="text-micro-label text-slate-400">NEURAL_LINK_LOAD</span>
+<span class="font-code-snippet text-[10px] text-rose-500">82%</span>
+</div>
+<div class="grid grid-cols-10 gap-0.5">
+<div class="h-1 bg-rose-600"></div><div class="h-1 bg-rose-600"></div><div class="h-1 bg-rose-600"></div>
+<div class="h-1 bg-rose-600"></div><div class="h-1 bg-rose-600"></div><div class="h-1 bg-rose-600"></div>
+<div class="h-1 bg-rose-600"></div><div class="h-1 bg-rose-600"></div><div class="h-1 bg-slate-800"></div>
+<div class="h-1 bg-slate-800"></div>
+</div>
+</div>
+<!-- Stat Card 2 -->
+<div class="p-2 border border-slate-800/50 bg-surface-container-low">
+<div class="flex justify-between items-center mb-1">
+<span class="text-micro-label text-slate-400">ENCRYPTION_BUFFER</span>
+<span class="font-code-snippet text-[10px] text-slate-300">STABLE</span>
+</div>
+<div class="font-code-snippet text-[10px] text-slate-500 leading-none">
+                                ABX: 009.21.32.112<br/>
+                                PRT: SH-900_EVO<br/>
+                                KEY: ****-****-9902
+                            </div>
+</div>
+<!-- Mini Map Visual -->
+<div class="h-32 border border-slate-800 bg-surface-container-lowest relative overflow-hidden">
+<div class="absolute inset-0 opacity-30 grayscale saturate-0 contrast-150">
+<img alt="Map Detail" class="w-full h-full object-cover" data-alt="A topographical heat-map visualization with complex wireframe grids and altitude lines. The image uses a technical color palette of dark slate, deep blue, and sharp raspberry-red highlights indicating 'zones of interest'. The lighting is cold and digital, giving the impression of an advanced mission-planning interface with high pixel density and meticulous line work." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnMoBt1UTCrnhWwv5KP_XNkDMnqTXzzz88Rq-W32bh_Cq3QozKMenLgWWuaIdkaw1GIouvv8jydJzGNgcW4SGzQTDTaVfHMPUzZO3W3bzCkaMlM_70c074xZSJZJmWl-vqYt8Dy2DIquHbD1fuG_oSkT341Ieb5csZtlsZSKuPShSJwCGoMQlqQZw07WU_ZrMEIJeIemPoU_EVmhOGyNIXHjNEfm111wQB3RfDLCrMS44c1tmGbzDByMUNiQDiQaKLTk-deGh4Xkg"/>
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-rose-500 animate-pulse" style="font-variation-settings: 'FILL' 1;">target</span>
+</div>
+<div class="absolute top-1 left-1 font-mono text-[8px] text-slate-500">LOCAL_RADAR_V3.1</div>
+</div>
+<!-- Tags Cloud -->
+<div class="space-y-1">
+<span class="text-micro-label text-slate-500 block mb-2">ACTIVE_SENSOR_TAGS</span>
+<div class="flex flex-wrap gap-1">
+<span class="bracket-x px-2 py-0.5 bg-slate-900 border border-slate-800 text-[9px] font-mono text-rose-400">MOTION_V4</span>
+<span class="bracket-x px-2 py-0.5 bg-slate-900 border border-slate-800 text-[9px] font-mono text-slate-400">HEAT_SENS</span>
+<span class="bracket-x px-2 py-0.5 bg-slate-900 border border-slate-800 text-[9px] font-mono text-slate-400">SIG_INT</span>
+<span class="bracket-x px-2 py-0.5 bg-slate-900 border border-slate-800 text-[9px] font-mono text-rose-400">BIO_TRK</span>
+<span class="bracket-x px-2 py-0.5 bg-slate-900 border border-slate-800 text-[9px] font-mono text-slate-400">VOICE_X</span>
+<span class="bracket-x px-2 py-0.5 bg-slate-900 border border-slate-800 text-[9px] font-mono text-slate-400">MAC_ID</span>
+</div>
+</div>
+</div>
+<!-- Footer Data Scroll -->
+<div class="mt-3 border-t border-slate-800 pt-2 h-12 overflow-hidden relative">
+<div class="font-code-snippet text-[8px] text-slate-600 whitespace-nowrap animate-[scroll_20s_linear_infinite]">
+                            [BOOT] KERNEL_LOAD_SUCCESS // [AUTH] USER_01_ACCEPTED // [NET] UPLINK_ENCRYPTED_99 // [LOG] SCANNING_PERIMETER_DELTA // [ERR] 0_VULNERABILITIES_FOUND // [BOOT] KERNEL_LOAD_SUCCESS // [AUTH] USER_01_ACCEPTED
+                        </div>
+<div class="flex justify-between items-center mt-1">
+<span class="text-[9px] font-mono text-rose-500">SYSTEM_READY</span>
+<span class="text-[9px] font-mono text-slate-600">VER_88.0.1</span>
+</div>
+</div>
+</div>
+<!-- Action Hub -->
+<div class="h-32 bg-slate-950 border border-slate-800 p-3 grid grid-cols-2 gap-2">
+<button class="flex flex-col items-center justify-center border border-slate-800 hover:bg-rose-950/20 hover:border-rose-600 transition-all">
+<span class="material-symbols-outlined text-slate-500 mb-1">lock_open</span>
+<span class="text-micro-label text-slate-500">OVERRIDE</span>
+</button>
+<button class="flex flex-col items-center justify-center border border-slate-800 hover:bg-rose-950/20 hover:border-rose-600 transition-all">
+<span class="material-symbols-outlined text-slate-500 mb-1">satellite_alt</span>
+<span class="text-micro-label text-slate-500">RELAY</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Decorative Corner Elements -->
+<div class="fixed top-14 right-4 z-50 pointer-events-none">
+<div class="text-micro-label text-rose-900 opacity-40 font-mono">SYS_DEBUG: 0x8F_FF_00</div>
+<div class="text-micro-label text-rose-900 opacity-40 font-mono">LAT_CORR: 0.00032</div>
+</div>
+<div class="fixed bottom-4 left-[272px] z-50 pointer-events-none">
+<div class="flex space-x-4 opacity-30">
+<div class="flex flex-col">
+<div class="w-12 h-1 bg-slate-700 mb-0.5"></div>
+<div class="w-8 h-1 bg-slate-700"></div>
+</div>
+<div class="text-micro-label font-mono text-slate-400">DATA_CANVAS_088_ACTIVE</div>
+</div>
+</div>
+</body></html>

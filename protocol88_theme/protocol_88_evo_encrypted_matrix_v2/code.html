@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PROTOCOL_88_EVO // ENCRYPTED_MATRIX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@300;400;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 18px;
+        }
+        .notched-corner {
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+        .notched-corner-sm {
+            clip-path: polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px));
+        }
+        .scanline-overlay {
+            background: linear-gradient(to bottom, transparent 50%, rgba(229, 226, 225, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        .grid-bg {
+            background-image: radial-gradient(circle, #353435 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #454749; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#454749",
+                        "tertiary-container": "#41000e",
+                        "secondary-container": "#484c50",
+                        "surface-bright": "#3a3939",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#353435",
+                        "outline-variant": "#44474a",
+                        "on-primary-container": "#838486",
+                        "surface-dim": "#141313",
+                        "on-secondary-fixed-variant": "#43474b",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-tint": "#c6c6c9",
+                        "on-tertiary": "#67001c",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "tertiary-fixed": "#ffdadb",
+                        "primary-fixed": "#e2e2e5",
+                        "surface-container-high": "#2a2a2a",
+                        "inverse-primary": "#5d5e61",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#c6c6c9",
+                        "primary": "#c6c6c9",
+                        "outline": "#8f9194",
+                        "on-secondary-fixed": "#181c20",
+                        "on-tertiary-fixed-variant": "#91002b",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary-fixed": "#40000e",
+                        "secondary-fixed-dim": "#c3c7cc",
+                        "on-secondary": "#2d3135",
+                        "inverse-on-surface": "#313030",
+                        "background": "#141313",
+                        "surface-variant": "#353435",
+                        "secondary": "#c3c7cc",
+                        "primary-container": "#1a1c1e",
+                        "on-primary-fixed": "#1a1c1e",
+                        "on-surface-variant": "#c5c6ca",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e0e3e8",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container": "#201f1f",
+                        "tertiary": "#ffb2b7",
+                        "surface": "#141313",
+                        "on-tertiary-container": "#eb4762",
+                        "on-surface": "#e5e2e1",
+                        "on-secondary-container": "#b9bcc1",
+                        "on-primary": "#2f3133",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "edge-margin": "24px",
+                        "unit": "4px",
+                        "container-padding": "16px",
+                        "gutter": "12px",
+                        "micro": "2px"
+                    },
+                    "fontFamily": {
+                        "micro-label": ["Space Grotesk"],
+                        "header-primary": ["Space Grotesk"],
+                        "data-readout": ["JetBrains Mono"],
+                        "digital-display": ["monospace"],
+                        "code-snippet": ["Fira Code"]
+                    },
+                    "fontSize": {
+                        "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                        "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-data-readout overflow-hidden selection:bg-on-tertiary-container selection:text-white">
+<div class="fixed inset-0 grid-bg opacity-20 pointer-events-none"></div>
+<div class="fixed inset-0 scanline-overlay z-[60]"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-3 h-12 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/40">
+<div class="flex items-center space-x-6">
+<span class="text-lg font-black text-rose-600 tracking-tighter">PROTOCOL_88_EVO</span>
+<nav class="hidden md:flex space-x-4">
+<a class="font-mono text-[11px] tracking-widest uppercase text-rose-500 border-b border-rose-600 pb-1" href="#">SENSORS</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">UPLINK</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">TACTICAL</a>
+<a class="font-mono text-[11px] tracking-widest uppercase text-slate-500 hover:text-slate-300 transition-colors" href="#">LOGS</a>
+</nav>
+</div>
+<div class="flex items-center space-x-2">
+<div class="flex items-center bg-slate-900 px-2 py-1 border border-slate-800 notched-corner-sm">
+<span class="material-symbols-outlined text-rose-600 mr-2 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[10px] font-mono p-0 w-32 placeholder-slate-600" placeholder="QUERY_DB..." type="text"/>
+</div>
+<button class="p-2 hover:bg-rose-950/20 hover:text-rose-400 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+</button>
+<button class="p-2 hover:bg-rose-950/20 hover:text-rose-400 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+</button>
+<button class="p-2 hover:bg-rose-950/20 hover:text-rose-400 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-12 h-[calc(100vh-48px)] w-64 flex flex-col bg-slate-950/95 border-r border-slate-800 z-40">
+<div class="p-4 border-b border-slate-800">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 border border-rose-600/30 p-0.5 notched-corner">
+<img alt="Admin" class="w-full h-full object-cover notched-corner" data-alt="A futuristic digital avatar or technical identity card profile picture in high-contrast cyberpunk style. The image features a stylized operator with neon overlays and digital noise, rendered in deep slate, black, and sharp rose-red accents. Tactical HUD elements and geometric patterns are layered over the character's face to suggest a neural link interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjHnPD7DkWne-mXrQG6j_WMy9YoAEOxfbTa05ZJeGJvtMl-enNBt6CZXTTRgDne7o3qO7bZyiwadi3DH3LryPebjMUklJQLIzLcDuRg8uIUHvBXLLh4EC5RGXOywwz2c1mrq9cooKWDHxNC6kC30YVNt5272sI93Hsu3sBHgbwZtwnGNgScO0LLP1F-7wWH0rhtK_cXhzF0HxS8OIEq-aqAq33o3jABo93fMpWQmx6pQoPwQUP0YmZQvldCqkFHYuiSthZmng-YQc"/>
+</div>
+<div>
+<h3 class="text-rose-500 font-bold font-mono text-[10px] leading-tight">OPERATOR_01</h3>
+<p class="text-slate-500 font-mono text-[8px]">LAT: 40.7128 / LON: 74.0060</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 py-2 overflow-y-auto">
+<a class="bg-rose-600/10 text-rose-500 border-l-2 border-rose-600 flex items-center px-4 py-3 space-x-3 transition-all font-mono text-[10px]" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span>OVERVIEW</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all font-mono text-[10px]" href="#">
+<span class="material-symbols-outlined" data-icon="enhanced_encryption">enhanced_encryption</span>
+<span>ENCRYPTION</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all font-mono text-[10px]" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span>NETWORK</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all font-mono text-[10px]" href="#">
+<span class="material-symbols-outlined" data-icon="biometric_setup">android_fingerprint</span>
+<span>VULN_SCAN</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all font-mono text-[10px]" href="#">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span>MEMORY</span>
+</a>
+<a class="flex items-center px-4 py-3 space-x-3 text-slate-500 hover:bg-slate-900/50 hover:text-rose-400 hover:translate-x-1 transition-all font-mono text-[10px]" href="#">
+<span class="material-symbols-outlined" data-icon="power_settings_new">power_settings_new</span>
+<span>TERMINATE</span>
+</a>
+</nav>
+<div class="p-4 space-y-4">
+<button class="w-full py-2 bg-rose-600/20 text-rose-500 border border-rose-600 font-mono text-[10px] notched-corner hover:bg-rose-600 hover:text-white transition-colors cursor-crosshair active:bg-rose-900/30">
+                INITIATE_BREACH
+            </button>
+<div class="space-y-2 border-t border-slate-800 pt-4">
+<div class="flex items-center justify-between text-slate-500 font-mono text-[9px]">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[12px]" data-icon="analytics">analytics</span>
+<span>SYS_STATUS</span>
+</div>
+<span class="text-rose-600">ONLINE</span>
+</div>
+<div class="flex items-center justify-between text-slate-500 font-mono text-[9px]">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[12px]" data-icon="developer_board">developer_board</span>
+<span>VER_88.0.1</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-12 p-4 h-[calc(100vh-48px)] overflow-y-auto bg-surface-container-lowest">
+<!-- Dashboard Matrix -->
+<div class="grid grid-cols-12 gap-3 mb-3">
+<!-- Encryption Real-time Matrix -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container border border-slate-800 p-4 notched-corner relative overflow-hidden">
+<div class="absolute top-1 right-2 font-mono text-[8px] text-slate-700">COORD: 40.7128N / 74.0060W</div>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center space-x-2">
+<div class="w-1.5 h-6 bg-rose-600"></div>
+<h2 class="font-header-primary text-header-primary text-rose-500 uppercase">Live_Matrix_Encryption</h2>
+</div>
+<div class="flex space-x-2">
+<span class="text-micro-label font-micro-label px-2 py-0.5 border border-slate-700 text-slate-500">REALTIME_STREAM</span>
+<span class="text-micro-label font-micro-label px-2 py-0.5 bg-rose-900/20 border border-rose-600/40 text-rose-400">ACTIVE_THREAT: NULL</span>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-2">
+<div class="col-span-4 bg-slate-950 p-3 border border-slate-900 notched-corner-sm">
+<div class="flex justify-between items-center mb-2 border-b border-slate-800 pb-1">
+<span class="text-micro-label font-micro-label text-slate-500">HEX_DUMP_KERNEL_SPACE</span>
+<span class="text-micro-label font-micro-label text-rose-600">0x000F48A</span>
+</div>
+<div class="font-code-snippet text-code-snippet text-slate-400 grid grid-cols-8 gap-1 opacity-80">
+<span>48</span> <span>89</span> <span>E5</span> <span>48</span> <span>83</span> <span>EC</span> <span>10</span> <span>BF</span>
+<span>A1</span> <span>00</span> <span>00</span> <span>00</span> <span>E8</span> <span>2D</span> <span>FE</span> <span>FF</span>
+<span>FF</span> <span>C7</span> <span>45</span> <span>FC</span> <span>00</span> <span>00</span> <span>00</span> <span>00</span>
+<span>83</span> <span>7D</span> <span>FC</span> <span>05</span> <span>0F</span> <span>8D</span> <span>2A</span> <span>00</span>
+</div>
+</div>
+</div>
+<div class="mt-4 grid grid-cols-3 gap-3">
+<div class="bg-surface-container-high p-2 border border-slate-800 notched-corner-sm">
+<div class="text-micro-label font-micro-label text-slate-500 mb-1">UPLINK_SPEED</div>
+<div class="font-digital-display text-digital-display text-on-surface">88.4 <span class="text-[10px] text-rose-600">GBPS</span></div>
+<div class="w-full bg-slate-900 h-1 mt-2">
+<div class="bg-rose-600 h-full w-[88%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-high p-2 border border-slate-800 notched-corner-sm">
+<div class="text-micro-label font-micro-label text-slate-500 mb-1">PACKET_LOSS</div>
+<div class="font-digital-display text-digital-display text-rose-500">0.002 <span class="text-[10px] text-rose-600">%</span></div>
+<div class="w-full bg-slate-900 h-1 mt-2">
+<div class="bg-rose-600 h-full w-[2%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-high p-2 border border-slate-800 notched-corner-sm">
+<div class="text-micro-label font-micro-label text-slate-500 mb-1">LATENCY</div>
+<div class="font-digital-display text-digital-display text-on-surface">04 <span class="text-[10px] text-rose-600">MS</span></div>
+<div class="w-full bg-slate-900 h-1 mt-2">
+<div class="bg-rose-600 h-full w-[12%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- System Visualizer Card -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container border border-slate-800 notched-corner relative flex flex-col">
+<div class="p-4 border-b border-slate-800 flex justify-between items-center">
+<span class="text-micro-label font-micro-label text-rose-500">NODE_VISUALIZER</span>
+<span class="material-symbols-outlined text-slate-600" data-icon="hub">hub</span>
+</div>
+<div class="flex-1 relative bg-slate-950 flex items-center justify-center p-4">
+<img alt="Hardware" class="absolute inset-0 w-full h-full object-cover opacity-20 grayscale" data-alt="A technical, high-angle close-up shot of complex server hardware and fiber optic cables illuminated by glowing red and cool white LEDs. The setting is a dark, high-security data center with a tactical, militarized aesthetic. The visual style features sharp focus on technical details, circuit patterns, and metallic textures, punctuated by a vibrant rose-red accent light that casts long, dramatic shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBinpLqcObvLd8a7CFdyxt4N0d94bZT08iVI5QJ0FisiC7P9Jw3Sszz2CdP3wimaPiSvRSuZkSd5bFWQPS3BDZk54JrHzOWqzTrKwb_P2EDw_0mYqYqo2zrAMKVuM8kQLgmplAuf6-y24XcIjxlxmGpo8Dy1bwGSoA_L0EqeysSdl_prtQemKq5vYRA0zRSZRXxR_0OqjFkX3YO1_t-oKO-9_qLXN9HMeeqPhZW6cFo4_qEdActhUkEB_OWOZ57eXLe0vdlkUq05mQ"/>
+<div class="z-10 w-full h-full flex flex-col items-center justify-center space-y-4">
+<div class="w-32 h-32 border-2 border-rose-600/20 rounded-full flex items-center justify-center relative">
+<div class="absolute inset-0 border border-rose-600 border-dashed rounded-full animate-spin"></div>
+<span class="material-symbols-outlined text-rose-600 text-4xl" data-icon="biometric_setup" data-weight="fill">android_fingerprint</span>
+</div>
+<div class="text-center">
+<p class="font-mono text-[10px] text-rose-400">NEURAL_ID_VERIFIED</p>
+<p class="font-mono text-[8px] text-slate-500">HASH: 7C-90-FD-2E-11</p>
+</div>
+</div>
+</div>
+<div class="p-3 bg-slate-900/50 border-t border-slate-800">
+<div class="flex items-center justify-between text-micro-label font-micro-label text-slate-500 mb-2">
+<span>SCAN_PROGRESS</span>
+<span>98%</span>
+</div>
+<div class="h-1 bg-slate-800 w-full">
+<div class="h-full bg-rose-600 w-[98%] shadow-[0_0_8px_rgba(225,29,72,0.6)]"></div>
+</div>
+</div>
+</div>
+<!-- Threat Logs (Bento Bottom Left) -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container border border-slate-800 p-4 notched-corner">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-rose-600" data-icon="terminal">terminal</span>
+<h2 class="font-header-primary text-header-primary text-on-surface uppercase">Intercept_Logs</h2>
+</div>
+<span class="text-micro-label font-micro-label text-slate-500">TOTAL_RECORDS: 1,024</span>
+</div>
+<div class="space-y-1 font-code-snippet text-[10px]">
+<div class="flex items-center justify-between p-1.5 bg-slate-950/50 border border-slate-800/30 hover:border-rose-600/40 transition-colors">
+<span class="text-rose-500">22:04:15</span>
+<span class="text-slate-400">[WARN] INBOUND_TCP_PORT_SCAN_DETECTED</span>
+<span class="text-slate-600">IP: 192.168.1.104</span>
+<span class="text-rose-600">[NULL_ACK]</span>
+</div>
+<div class="flex items-center justify-between p-1.5 bg-slate-950/50 border border-slate-800/30 hover:border-rose-600/40 transition-colors">
+<span class="text-rose-500">22:04:12</span>
+<span class="text-slate-400">[INFO] DECRYPTION_KEY_ROTATION_SUCCESS</span>
+<span class="text-slate-600">SID: 0x8F22A</span>
+<span class="text-on-primary-fixed-variant">[SECURE]</span>
+</div>
+<div class="flex items-center justify-between p-1.5 bg-slate-950/50 border border-slate-800/30 hover:border-rose-600/40 transition-colors">
+<span class="text-rose-500">22:04:08</span>
+<span class="text-slate-400">[CRIT] BRUTE_FORCE_ATTEMPT_L3_FIREWALL</span>
+<span class="text-rose-600">ORIGIN: RU_MS_01</span>
+<span class="text-rose-600">[BLOCKED]</span>
+</div>
+<div class="flex items-center justify-between p-1.5 bg-slate-950/50 border border-slate-800/30 hover:border-rose-600/40 transition-colors">
+<span class="text-rose-500">22:03:55</span>
+<span class="text-slate-400">[INFO] SYSTEM_HEARTBEAT_STABLE</span>
+<span class="text-slate-600">LAT: 4MS</span>
+<span class="text-on-primary-fixed-variant">[OK]</span>
+</div>
+</div>
+</div>
+<!-- Vulnerability Feed (Bento Bottom Right) -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container border border-slate-800 p-4 notched-corner">
+<div class="flex items-center space-x-2 mb-4">
+<span class="material-symbols-outlined text-rose-600" data-icon="biometric_setup">android_fingerprint</span>
+<h2 class="font-header-primary text-header-primary text-on-surface uppercase">Vulnerability_Scan</h2>
+</div>
+<div class="space-y-3">
+<div class="flex items-start space-x-3 bg-slate-950 p-2 border border-slate-800 notched-corner-sm">
+<div class="w-8 h-8 flex-shrink-0 bg-rose-900/20 flex items-center justify-center border border-rose-600">
+<span class="text-rose-500 font-bold text-[10px]">H</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<span class="font-mono text-[9px] text-rose-500">CVE-2024-8801</span>
+<span class="text-micro-label font-micro-label text-slate-600">CRITICAL</span>
+</div>
+<p class="text-[10px] text-slate-400 leading-tight">Buffer overflow in uplink protocol detected in sector 7G. Immediate patch required.</p>
+</div>
+</div>
+<div class="flex items-start space-x-3 bg-slate-950 p-2 border border-slate-800 notched-corner-sm">
+<div class="w-8 h-8 flex-shrink-0 bg-slate-800 flex items-center justify-center border border-slate-600">
+<span class="text-slate-400 font-bold text-[10px]">M</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<span class="font-mono text-[9px] text-slate-300">CVE-2024-9012</span>
+<span class="text-micro-label font-micro-label text-slate-600">MODERATE</span>
+</div>
+<p class="text-[10px] text-slate-400 leading-tight">SSL certificate expiration nearing for tactical relay nodes.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Global Status Bar (Bottom) -->
+<div class="bg-surface-container border border-slate-800 p-2 flex justify-between items-center notched-corner">
+<div class="flex space-x-4 items-center">
+<div class="flex items-center space-x-2">
+<div class="w-2 h-2 rounded-full bg-rose-600 shadow-[0_0_5px_rgba(225,29,72,0.8)]"></div>
+<span class="text-micro-label font-micro-label text-slate-300">MATRIX_STABLE</span>
+</div>
+<div class="h-4 w-px bg-slate-800"></div>
+<div class="flex items-center space-x-2">
+<span class="text-micro-label font-micro-label text-slate-500">ENCRYPTION:</span>
+<span class="text-micro-label font-micro-label text-rose-400">AES-XTS-880</span>
+</div>
+<div class="h-4 w-px bg-slate-800"></div>
+<div class="flex items-center space-x-2">
+<span class="text-micro-label font-micro-label text-slate-500">UPTIME:</span>
+<span class="text-micro-label font-micro-label text-slate-300">1024:12:44:09</span>
+</div>
+</div>
+<div class="flex space-x-2 items-center">
+<span class="text-micro-label font-micro-label text-slate-600">P88-EVO // SYS_CORE // MODULE_ACTIVE</span>
+<span class="material-symbols-outlined text-rose-600 text-xs" data-icon="memory">memory</span>
+</div>
+</div>
+</main>
+<!-- Navigation suppressed for content priority per rules -->
+</body></html>

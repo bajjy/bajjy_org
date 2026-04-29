@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PROTOCOL_88_EVO // MATRIX_ANALYSIS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#181c20",
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#b9bcc1",
+                    "surface-container-highest": "#353435",
+                    "on-primary-fixed": "#1a1c1e",
+                    "on-error-container": "#ffdad6",
+                    "surface-container": "#201f1f",
+                    "surface": "#141313",
+                    "on-primary": "#2f3133",
+                    "primary": "#c6c6c9",
+                    "error": "#ffb4ab",
+                    "on-surface": "#e5e2e1",
+                    "tertiary-fixed-dim": "#ffb2b7",
+                    "tertiary-fixed": "#ffdadb",
+                    "primary-fixed": "#e2e2e5",
+                    "surface-tint": "#c6c6c9",
+                    "inverse-on-surface": "#313030",
+                    "primary-container": "#1a1c1e",
+                    "background": "#141313",
+                    "surface-container-high": "#2a2a2a",
+                    "secondary-fixed": "#e0e3e8",
+                    "on-secondary-fixed-variant": "#43474b",
+                    "on-primary-fixed-variant": "#454749",
+                    "primary-fixed-dim": "#c6c6c9",
+                    "surface-variant": "#353435",
+                    "surface-dim": "#141313",
+                    "on-error": "#690005",
+                    "secondary": "#c3c7cc",
+                    "outline-variant": "#44474a",
+                    "on-tertiary-container": "#eb4762",
+                    "surface-container-low": "#1c1b1b",
+                    "on-tertiary-fixed": "#40000e",
+                    "inverse-surface": "#e5e2e1",
+                    "surface-bright": "#3a3939",
+                    "outline": "#8f9194",
+                    "secondary-fixed-dim": "#c3c7cc",
+                    "on-tertiary": "#67001c",
+                    "inverse-primary": "#5d5e61",
+                    "on-tertiary-fixed-variant": "#91002b",
+                    "on-surface-variant": "#c5c6ca",
+                    "tertiary": "#ffb2b7",
+                    "on-secondary": "#2d3135",
+                    "tertiary-container": "#41000e",
+                    "secondary-container": "#484c50",
+                    "on-background": "#e5e2e1",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary-container": "#838486"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "micro": "2px",
+                    "edge-margin": "24px",
+                    "gutter": "12px",
+                    "container-padding": "16px"
+            },
+            "fontFamily": {
+                    "header-primary": ["Space Grotesk"],
+                    "data-readout": ["JetBrains Mono"],
+                    "digital-display": ["monospace"],
+                    "micro-label": ["Space Grotesk"],
+                    "code-snippet": ["Fira Code"]
+            },
+            "fontSize": {
+                    "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                    "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                    "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 18px;
+        }
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(225, 29, 72, 0.05) 50%);
+            background-size: 100% 4px;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, 95% 0, 100% 15%, 100% 100%, 5% 100%, 0 85%);
+        }
+        .bracket-border {
+            position: relative;
+        }
+        .bracket-border::before {
+            content: '[';
+            position: absolute;
+            left: -8px;
+            color: #e11d48;
+            font-family: monospace;
+        }
+        .bracket-border::after {
+            content: ']';
+            position: absolute;
+            right: -8px;
+            color: #e11d48;
+            font-family: monospace;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-data-readout selection:bg-rose-600 selection:text-white overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-3 h-12 bg-slate-950 dark:bg-[#1a1c1e] bg-opacity-90 backdrop-blur-md border-b border-slate-800/60 border-[1px]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-rose-600" data-icon="sensors">sensors</span>
+<span class="font-['Space_Grotesk'] uppercase tracking-tighter text-[10px] font-bold text-rose-600 dark:text-rose-500">P_88_EVO // STATUS: ACTIVE</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-[8px] font-micro-label opacity-40 text-right leading-none hidden xs:block">
+                SYS_VER: 88.0.1<br/>LAT: 40.7128 LON: 74.0060
+            </div>
+<span class="material-symbols-outlined text-rose-600 active:scale-95 cursor-crosshair" data-icon="memory">memory</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-12 pb-16 min-h-screen scanline bg-slate-950/20">
+<!-- Packet Header Analysis Section -->
+<section class="p-3 grid grid-cols-1 gap-3">
+<div class="bg-surface-container-low border border-slate-800/60 p-2 relative">
+<div class="absolute top-0 right-0 p-1 text-[7px] font-mono text-rose-600 opacity-60">SEG_0x442 // ANALYZING</div>
+<h2 class="text-micro-label font-header-primary text-rose-500 mb-2 border-b border-rose-950/50 pb-1">LIVE_PACKET_STREAM</h2>
+<div class="space-y-1">
+<div class="flex justify-between items-center text-[10px] font-code-snippet border-l-2 border-rose-600 pl-2 bg-rose-600/5 py-1">
+<span class="text-on-surface-variant">08:44:21.002</span>
+<span class="text-rose-500 font-bold">TCP_SYN</span>
+<span class="text-on-surface opacity-80">192.168.1.105 &gt; 203.0.113.44</span>
+</div>
+<div class="flex justify-between items-center text-[10px] font-code-snippet border-l-2 border-slate-700 pl-2 py-1">
+<span class="text-on-surface-variant">08:44:21.045</span>
+<span class="text-secondary">TLS_HELLO</span>
+<span class="text-on-surface opacity-80">203.0.113.44 &gt; 192.168.1.105</span>
+</div>
+<div class="flex justify-between items-center text-[10px] font-code-snippet border-l-2 border-error-container pl-2 bg-error-container/10 py-1">
+<span class="text-on-surface-variant">08:44:21.092</span>
+<span class="text-error font-bold">ALERT: MALFORMED</span>
+<span class="text-error opacity-80">ENCRYPT_ERR_08</span>
+</div>
+</div>
+</div>
+<!-- Hex Dump & Assembly -->
+<div class="grid grid-cols-1 xs:grid-cols-2 gap-3">
+<div class="bg-surface-container-high border border-slate-800 p-2 clipped-corner">
+<div class="text-[8px] text-slate-500 mb-1 flex justify-between">
+<span>DATA_DUMP_01</span>
+<span>0x00000450</span>
+</div>
+<div class="font-code-snippet text-[9px] text-rose-400 leading-tight">
+                        0040 4d 5a 90 00 03 00 00 00<br/>
+                        0048 04 00 00 00 ff ff 00 00<br/>
+                        0050 b8 00 00 00 00 00 00 00<br/>
+                        0058 40 00 00 00 00 00 00 00<br/>
+                        0060 00 00 00 00 00 00 00 00
+                    </div>
+</div>
+<div class="bg-surface-container-high border border-slate-800 p-2 clipped-corner">
+<div class="text-[8px] text-slate-500 mb-1 flex justify-between">
+<span>ASM_EXEC_TRACE</span>
+<span>CORE_0</span>
+</div>
+<div class="font-code-snippet text-[9px] text-primary-fixed leading-tight">
+                        PUSH RBP<br/>
+                        MOV RBP, RSP<br/>
+                        SUB RSP, 0x20<br/>
+                        MOV [RBP-0x8], RDI<br/>
+                        XOR EAX, EAX<br/>
+                        RET
+                    </div>
+</div>
+</div>
+<!-- Visual Telemetry Section -->
+<div class="bg-slate-900/40 border border-slate-800 p-3 h-40 relative flex flex-col justify-end overflow-hidden">
+<img alt="Technical Matrix" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" data-alt="A dark, high-contrast technical interface displaying complex digital code and futuristic circuitry patterns. The scene is bathed in a deep slate and raspberry red glow, creating a tactical HUD aesthetic. Glowing data streams and neon-tinged schematic lines overlap in a dense, multi-layered visual composition that suggests high-stakes surveillance and cyber defense protocols." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6Oq4ci61K7RQpCetdZVvPDoMy9_otQwWaBpatcDrJ8aY3bU7liYD41EILnK9prw5R6hS5olzPadbwaxRutpsEWTkbyBh0y7p4LYGxQYBFGx8LP4i7CDIa2G7NLpPJpVTptppSX6SrdaaaxxhGrhsaSe3xkTZIOL6JsgeMUzuOvbfNsndfVu7OcEn5MFeG9qYLYGf2NbiFpxckLEYflsobjrgPa-RXcfTeDtc8av0Iuu5QgMdomibpoGic4-mREfV0DpqP6fAARs"/>
+<div class="relative z-10 w-full">
+<div class="flex items-end gap-1 h-12 mb-2">
+<div class="flex-1 bg-rose-600 h-[20%] opacity-40"></div>
+<div class="flex-1 bg-rose-600 h-[60%] opacity-60"></div>
+<div class="flex-1 bg-rose-600 h-[40%] opacity-50"></div>
+<div class="flex-1 bg-rose-600 h-[90%]"></div>
+<div class="flex-1 bg-rose-600 h-[30%] opacity-40"></div>
+<div class="flex-1 bg-rose-600 h-[50%] opacity-60"></div>
+<div class="flex-1 bg-rose-600 h-[75%] opacity-80"></div>
+<div class="flex-1 bg-rose-600 h-[100%]"></div>
+</div>
+<div class="flex justify-between text-[8px] text-rose-500/80 font-bold tracking-widest border-t border-rose-900/50 pt-1">
+<span>SIGNAL_STRENGTH: 94%</span>
+<span>LATENCY: 12ms</span>
+</div>
+</div>
+</div>
+<!-- Status Modules -->
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-container-highest border border-slate-700/50 p-2 text-center">
+<div class="text-[8px] text-slate-500">CPU_L</div>
+<div class="text-xs font-digital-display text-primary">42%</div>
+</div>
+<div class="bg-surface-container-highest border border-slate-700/50 p-2 text-center border-x-rose-600/30">
+<div class="text-[8px] text-slate-500">MEM_U</div>
+<div class="text-xs font-digital-display text-rose-500">8.2G</div>
+</div>
+<div class="bg-surface-container-highest border border-slate-700/50 p-2 text-center">
+<div class="text-[8px] text-slate-500">NET_I</div>
+<div class="text-xs font-digital-display text-primary">100/M</div>
+</div>
+</div>
+<!-- Terminal Readout -->
+<div class="bg-black border border-slate-800 p-2 font-code-snippet text-[10px] h-32 overflow-hidden relative">
+<div class="absolute top-0 right-0 text-[10px] text-rose-600 animate-pulse mr-2">_</div>
+<div class="text-on-surface-variant opacity-60">system@evo-terminal:~$ protocol-scan --active</div>
+<div class="text-primary-fixed-dim">[INIT] Synchronizing neural matrix...</div>
+<div class="text-primary-fixed-dim">[OK] Secure tunnel established.</div>
+<div class="text-primary-fixed-dim">[WAIT] Intercepting data packets...</div>
+<div class="text-rose-500">[WARN] Unrecognized handshake pattern at 0x88.</div>
+<div class="text-primary-fixed-dim">[INFO] Decrypting payload...</div>
+<div class="text-on-surface opacity-40">&gt;&gt; 01011100 11010010 11110001</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-16 px-1 bg-slate-950 dark:bg-[#1a1c1e] border-t border-slate-800">
+<!-- CMD -->
+<a class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 hover:bg-rose-900/20 hover:text-rose-300 transition-colors duration-75 active:bg-rose-600/10" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium">CMD</span>
+</a>
+<!-- SCAN (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-rose-500 bg-rose-500/5 border-t-2 border-rose-600 pt-1 pb-2 transition-colors duration-75 active:bg-rose-600/10" href="#">
+<span class="material-symbols-outlined" data-icon="radar" style="font-variation-settings: 'FILL' 1;">radar</span>
+<span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium">SCAN</span>
+</a>
+<!-- CRYPT -->
+<a class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 hover:bg-rose-900/20 hover:text-rose-300 transition-colors duration-75 active:bg-rose-600/10" href="#">
+<span class="material-symbols-outlined" data-icon="enhanced_encryption">enhanced_encryption</span>
+<span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium">CRYPT</span>
+</a>
+<!-- SYS -->
+<a class="flex flex-col items-center justify-center text-slate-600 opacity-70 pt-1 pb-2 hover:bg-rose-900/20 hover:text-rose-300 transition-colors duration-75 active:bg-rose-600/10" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span class="font-['Space_Grotesk'] uppercase text-[9px] tracking-widest font-medium">SYS</span>
+</a>
+</nav>
+<!-- Contextual FAB (Scan Trigger) -->
+<button class="fixed right-4 bottom-20 w-12 h-12 bg-rose-600 text-white rounded-none flex items-center justify-center shadow-lg active:scale-95 transition-transform clipped-corner">
+<span class="material-symbols-outlined" data-icon="search" style="font-variation-settings: 'FILL' 1;">search</span>
+</button>
+</body></html>

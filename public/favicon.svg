@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#141313"/>
+  <path d="M8 8 H56 V56 H8 Z" fill="none" stroke="#e11d48" stroke-width="2"/>
+  <text x="32" y="40" text-anchor="middle"
+        font-family="ui-monospace,monospace" font-weight="700"
+        font-size="4" fill="#e11d48" letter-spacing="2">BAJJY.ORG</text>
+  <circle cx="12" cy="12" r="2" fill="#e11d48"/>
+</svg>

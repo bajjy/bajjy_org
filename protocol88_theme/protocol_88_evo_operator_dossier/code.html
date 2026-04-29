@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .clip-path-notch {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 90% 100%, 0% 100%);
+        }
+        .clip-path-right-notch {
+            clip-path: polygon(0% 0%, 92% 0%, 100% 15%, 100% 100%, 0% 100%);
+        }
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(225, 29, 72, 0.05) 51%);
+            background-size: 100% 4px;
+        }
+        .grid-overlay {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .circuit-line {
+            position: absolute;
+            background: rgba(225, 29, 72, 0.2);
+            z-index: 0;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#c3c7cc",
+                        "error-container": "#93000a",
+                        "surface-container": "#201f1f",
+                        "on-secondary-fixed-variant": "#43474b",
+                        "on-tertiary-fixed": "#40000e",
+                        "surface-bright": "#3a3939",
+                        "surface": "#141313",
+                        "surface-tint": "#c6c6c9",
+                        "on-tertiary-fixed-variant": "#91002b",
+                        "on-tertiary-container": "#eb4762",
+                        "primary-fixed": "#e2e2e5",
+                        "secondary": "#c3c7cc",
+                        "on-surface-variant": "#c5c6ca",
+                        "tertiary": "#ffb2b7",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container-high": "#2a2a2a",
+                        "primary-container": "#1a1c1e",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#838486",
+                        "tertiary-container": "#41000e",
+                        "outline": "#8f9194",
+                        "on-primary": "#2f3133",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "inverse-primary": "#5d5e61",
+                        "background": "#141313",
+                        "inverse-surface": "#e5e2e1",
+                        "outline-variant": "#44474a",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-container": "#484c50",
+                        "primary": "#c6c6c9",
+                        "on-secondary-fixed": "#181c20",
+                        "on-secondary": "#2d3135",
+                        "surface-container-highest": "#353435",
+                        "on-tertiary": "#67001c",
+                        "on-primary-fixed-variant": "#454749",
+                        "secondary-fixed": "#e0e3e8",
+                        "on-background": "#e5e2e1",
+                        "tertiary-fixed": "#ffdadb",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#1a1c1e",
+                        "surface-variant": "#353435",
+                        "primary-fixed-dim": "#c6c6c9",
+                        "on-secondary-container": "#b9bcc1",
+                        "on-surface": "#e5e2e1",
+                        "on-error": "#690005",
+                        "surface-dim": "#141313"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "16px",
+                        "micro": "2px",
+                        "edge-margin": "24px",
+                        "gutter": "12px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "code-snippet": ["Fira Code"],
+                        "digital-display": ["monospace"],
+                        "data-readout": ["JetBrains Mono"],
+                        "micro-label": ["Space Grotesk"],
+                        "header-primary": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                        "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-header-primary overflow-x-hidden grid-overlay">
+<!-- TopAppBar -->
+<nav class="bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50 flex justify-between items-center w-full px-4 h-14 z-50 fixed top-0 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-rose-600/20 after:to-transparent">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black tracking-widest text-rose-600 drop-shadow-[0_0_8px_rgba(225,29,72,0.4)]">PROTOCOL_88_EVO</span>
+</div>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-500 hover:text-slate-200 transition-colors duration-200 px-2 py-1 font-space-grotesk font-bold tracking-tighter uppercase text-xs" href="#">DIAGNOSTICS</a>
+<a class="text-slate-500 hover:text-slate-200 transition-colors duration-200 px-2 py-1 font-space-grotesk font-bold tracking-tighter uppercase text-xs" href="#">COMM_LINKS</a>
+<a class="text-slate-500 hover:text-slate-200 transition-colors duration-200 px-2 py-1 font-space-grotesk font-bold tracking-tighter uppercase text-xs" href="#">TACTICAL_GRID</a>
+<a class="text-rose-500 border-b-2 border-rose-600 font-bold px-2 py-1 font-space-grotesk tracking-tighter uppercase text-xs skew-x-[-12deg]" href="#">CORE</a>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-rose-600 cursor-pointer p-1 hover:bg-rose-600/10 transition-all">terminal</span>
+<span class="material-symbols-outlined text-rose-600 cursor-pointer p-1 hover:bg-rose-600/10 transition-all">settings</span>
+<span class="material-symbols-outlined text-rose-600 cursor-pointer p-1 hover:bg-rose-600/10 transition-all">power_settings_new</span>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="bg-slate-950 fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex flex-col justify-between py-4 z-40 w-64 border-r border-slate-800/50 hidden md:flex">
+<div class="flex flex-col gap-1">
+<div class="px-6 py-4 flex flex-col gap-1 border-b border-slate-800/30 mb-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-slate-800 overflow-hidden border border-rose-600/50">
+<img alt="OPERATOR_ID_88" data-alt="high-contrast glitch art of a human eye with digital artifacts and glowing red scanlines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPoDfPWJG41ORaAOAPvyiMKhmZPaImTlqmfLZOw3fpmvAH1i_dLTdM3FIRrTYDOh4xRooDtZ-FucorhZ3mEYObZmWKgn37Mpdzggd6_hrHPpmhHNmDUif0HlJfeGFUvMGwiu2r88tfQooFcMPFcEFu7ImWSBfFSEwSx7hco_qkku2AqMpXwfAGe7T2LFol50jjq52Y0hHtKOwzA4dTB7Hjd46srS0EHluzhtE64Zj1EvESGu8oy8Xljqg_LuTiO14VZabHWjpMAnY"/>
+</div>
+<div>
+<div class="text-slate-200 font-bold font-mono text-[10px] uppercase tracking-widest">OS_VER_88.0.1</div>
+<div class="text-rose-600 font-mono text-[8px] uppercase tracking-widest">LAT:40.71/LON:74.00</div>
+</div>
+</div>
+</div>
+<a class="flex items-center gap-3 bg-rose-600/10 text-rose-500 border-l-4 border-rose-600 px-4 py-3 clip-path-right-notch font-mono text-[10px] uppercase tracking-widest animate-pulse" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span>OPERATOR</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 hover:bg-slate-900 transition-all duration-300 font-mono text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">radar</span>
+<span>SENSOR_NET</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 hover:bg-slate-900 transition-all duration-300 font-mono text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>LOGISTICS</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 hover:bg-slate-900 transition-all duration-300 font-mono text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">lock</span>
+<span>ENCRYPTION</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 hover:bg-slate-900 transition-all duration-300 font-mono text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span>MAP_GRID</span>
+</a>
+</div>
+<div class="px-4 flex flex-col gap-2">
+<div class="flex items-center gap-3 text-slate-500 px-4 py-2 font-mono text-[9px] hover:text-slate-300 transition-all cursor-pointer border border-slate-800/30">
+<span class="material-symbols-outlined text-sm">memory</span>
+<span>SYS_STATUS</span>
+</div>
+<div class="flex items-center gap-3 text-slate-500 px-4 py-2 font-mono text-[9px] hover:text-slate-300 transition-all cursor-pointer border border-slate-800/30">
+<span class="material-symbols-outlined text-sm">description</span>
+<span>DATA_LOGS</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-14 p-gutter min-h-screen relative overflow-hidden">
+<!-- Visual Decorator Lines -->
+<div class="circuit-line h-[1px] w-64 top-32 left-10 opacity-30"></div>
+<div class="circuit-line w-[1px] h-32 top-32 left-10 opacity-30"></div>
+<div class="circuit-line h-[1px] w-32 top-64 right-10 opacity-30"></div>
+<div class="grid grid-cols-12 gap-unit max-w-7xl mx-auto mt-6">
+<!-- Left Panel: Biometric Avatar -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-unit">
+<div class="bg-surface-container border border-outline-variant/30 p-unit relative overflow-hidden clip-path-notch group">
+<div class="absolute top-0 right-0 p-1 text-[8px] font-mono text-rose-600/50">OPERATOR_BIO_SCAN</div>
+<div class="absolute bottom-2 left-2 text-[8px] font-mono text-slate-500">VER_88.0.1 // AUTH_SUCCESS</div>
+<div class="relative aspect-square w-full bg-slate-950 flex items-center justify-center p-8">
+<!-- HUD Overlays -->
+<div class="absolute inset-0 border-4 border-rose-600/10 rounded-full scale-75 animate-[spin_10s_linear_infinite]"></div>
+<div class="absolute inset-0 border border-dashed border-rose-600/30 rounded-full scale-90"></div>
+<div class="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-rose-600"></div>
+<div class="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-rose-600"></div>
+<div class="relative w-full h-full scanline z-10 opacity-60">
+<img alt="Avatar" class="w-full h-full object-cover grayscale contrast-125" data-alt="Cyberpunk character portrait with glowing neural link interfaces and high-tech tactical gear, cinematic dark lighting with red neon accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOap3c3uu7PgehMhY0HK-79f8WjX6mUlRRIgKR1Nouqx9T1HSWBSTR8ssNaW1WreziiMcZeBSvdYPI8Z94lIUfThoFOPhGCPhvMj2h21gBxxpHpvNhCJWB7GO-LydQV11Sui7bQf6A4rV9OB32jaffpTIse8RjDz71AYEa6sfeE6t9xaYM5zdtkiOuq6lHy-DfidQMtb8wrXQ1iJKF4zX3HfapwBVtvl0FX7icfvEBWatAOpKJVyKK1QbnoxN3kxj084G9KmFndtc"/>
+</div>
+</div>
+<div class="mt-2 grid grid-cols-2 gap-1 px-2 pb-2">
+<div class="border border-rose-600/20 p-2 bg-slate-900/50">
+<div class="font-micro-label text-micro-label text-slate-500 uppercase">HEART_RATE</div>
+<div class="font-digital-display text-lg text-rose-600">142 BPM</div>
+</div>
+<div class="border border-rose-600/20 p-2 bg-slate-900/50">
+<div class="font-micro-label text-micro-label text-slate-500 uppercase">NEURAL_LOAD</div>
+<div class="font-digital-display text-lg text-rose-600">88%</div>
+</div>
+</div>
+</div>
+<!-- Status Panel -->
+<div class="bg-surface-container border border-outline-variant/30 p-4 clip-path-notch">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-header-primary text-xs tracking-widest text-rose-600">CONNECTION_STATUS</h3>
+<span class="text-[8px] font-mono text-slate-500">LATENCY: 0.04ms</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-end border-b border-slate-800 pb-1">
+<span class="font-micro-label text-[10px] text-slate-400">ENCRYPTION_LAYER</span>
+<span class="font-data-readout text-rose-500">AES-XTS-88</span>
+</div>
+<div class="flex justify-between items-end border-b border-slate-800 pb-1">
+<span class="font-micro-label text-[10px] text-slate-400">PROXY_HUNT</span>
+<span class="font-data-readout text-rose-500">ACTIVE</span>
+</div>
+<div class="flex justify-between items-end border-b border-slate-800 pb-1">
+<span class="font-micro-label text-[10px] text-slate-400">UPLINK_STRENGTH</span>
+<div class="flex gap-1">
+<div class="w-1 h-3 bg-rose-600"></div>
+<div class="w-1 h-3 bg-rose-600"></div>
+<div class="w-1 h-3 bg-rose-600"></div>
+<div class="w-1 h-3 bg-rose-600/20"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Panel: Matrices & Analytics -->
+<div class="col-span-12 lg:col-span-5 flex flex-col gap-unit">
+<div class="bg-surface-container-high border border-rose-600/30 p-4 clip-path-notch relative">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-rose-600">analytics</span>
+<h2 class="font-header-primary text-sm tracking-[0.2em] uppercase">Skill_Matrix_v8</h2>
+</div>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between font-micro-label text-slate-300 mb-1">
+<span>CYBER_WARFARE</span>
+<span class="text-rose-500">92%</span>
+</div>
+<div class="h-1 bg-slate-800 w-full">
+<div class="h-full bg-rose-600 shadow-[0_0_8px_rgba(225,29,72,0.6)]" style="width: 92%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-micro-label text-slate-300 mb-1">
+<span>QUANTUM_DECRYPTION</span>
+<span class="text-rose-500">84%</span>
+</div>
+<div class="h-1 bg-slate-800 w-full">
+<div class="h-full bg-rose-600 shadow-[0_0_8px_rgba(225,29,72,0.6)]" style="width: 84%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-micro-label text-slate-300 mb-1">
+<span>NEURAL_INTERFACING</span>
+<span class="text-rose-500">76%</span>
+</div>
+<div class="h-1 bg-slate-800 w-full">
+<div class="h-full bg-rose-600 shadow-[0_0_8px_rgba(225,29,72,0.6)]" style="width: 76%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-micro-label text-slate-300 mb-1">
+<span>VOID_SENSING</span>
+<span class="text-rose-500">65%</span>
+</div>
+<div class="h-1 bg-slate-800 w-full">
+<div class="h-full bg-rose-600 shadow-[0_0_8px_rgba(225,29,72,0.6)]" style="width: 65%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant/30 p-4 clip-path-notch">
+<div class="font-header-primary text-[10px] tracking-widest text-slate-400 mb-4 uppercase">Operational_Heatmap</div>
+<div class="grid grid-cols-12 gap-1">
+<!-- Heatmap Mockup -->
+<div class="aspect-square bg-slate-800"></div>
+<div class="aspect-square bg-rose-600/20"></div>
+<div class="aspect-square bg-rose-600/40"></div>
+<div class="aspect-square bg-rose-600/60"></div>
+<div class="aspect-square bg-rose-600"></div>
+<div class="aspect-square bg-rose-600/40"></div>
+<div class="aspect-square bg-slate-800"></div>
+<div class="aspect-square bg-slate-800"></div>
+<div class="aspect-square bg-rose-600/20"></div>
+<div class="aspect-square bg-rose-600/60"></div>
+<div class="aspect-square bg-rose-600"></div>
+<div class="aspect-square bg-rose-600/80"></div>
+<!-- Row 2 -->
+<div class="aspect-square bg-rose-600/80"></div>
+<div class="aspect-square bg-rose-600/60"></div>
+<div class="aspect-square bg-rose-600"></div>
+<div class="aspect-square bg-rose-600/20"></div>
+<div class="aspect-square bg-slate-800"></div>
+<div class="aspect-square bg-rose-600/40"></div>
+<div class="aspect-square bg-rose-600/60"></div>
+<div class="aspect-square bg-rose-600"></div>
+<div class="aspect-square bg-rose-600/40"></div>
+<div class="aspect-square bg-slate-800"></div>
+<div class="aspect-square bg-slate-800"></div>
+<div class="aspect-square bg-rose-600/20"></div>
+</div>
+<div class="flex justify-between mt-2 font-mono text-[8px] text-slate-500">
+<span>LOW_ACTIVITY</span>
+<span>CRITICAL_BURST</span>
+</div>
+</div>
+</div>
+<!-- Right Panel: Log Stream & Micro-Data -->
+<div class="col-span-12 lg:col-span-3 flex flex-col gap-unit">
+<div class="bg-slate-950 border border-slate-800 h-full flex flex-col clip-path-notch min-h-[400px]">
+<div class="bg-slate-900 px-3 py-2 flex items-center justify-between border-b border-slate-800">
+<span class="font-code-snippet text-rose-500 text-[10px]">LOG_STREAM.ASM</span>
+<div class="flex gap-1">
+<div class="w-2 h-2 rounded-full bg-rose-600"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+</div>
+</div>
+<div class="p-3 font-code-snippet text-code-snippet text-on-primary-container overflow-y-auto">
+<div class="mb-1 text-slate-600">0x00401000: <span class="text-rose-400">push</span> ebp</div>
+<div class="mb-1 text-slate-600">0x00401001: <span class="text-rose-400">mov</span> ebp, esp</div>
+<div class="mb-1 text-slate-600">0x00401003: <span class="text-rose-400">sub</span> esp, 0x20</div>
+<div class="mb-1 text-slate-400">; CRITICAL_ENTRY_POINT</div>
+<div class="mb-1 text-slate-600">0x00401006: <span class="text-rose-400">mov</span> eax, [ebp+8]</div>
+<div class="mb-1 text-slate-600">0x00401009: <span class="text-rose-400">xor</span> edx, edx</div>
+<div class="mb-1 text-rose-500 animate-pulse">&gt;&gt; INJECTING_PROTOCOL_88</div>
+<div class="mb-1 text-slate-600">0x0040100B: <span class="text-rose-400">cmp</span> eax, 0x88</div>
+<div class="mb-1 text-slate-600">0x0040100E: <span class="text-rose-400">jne</span> _EXIT_ERR</div>
+<div class="mb-1 text-slate-600">0x00401010: <span class="text-rose-400">call</span> _DYN_MEM_ALLOC</div>
+<div class="mb-1 text-slate-500 mt-4">... SYSTEM_SCAN_COMPLETE ...</div>
+<div class="mb-1 text-slate-600">0x00401015: <span class="text-rose-400">ret</span></div>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant/30 p-3 clip-path-notch">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-rose-600 text-sm">satellite_alt</span>
+<span class="font-header-primary text-[10px] tracking-widest">ACTIVE_NODES</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<div class="bg-rose-600/10 border border-rose-600/30 px-2 py-1 flex items-center gap-1">
+<span class="w-1 h-1 bg-rose-600 rounded-full"></span>
+<span class="font-micro-label text-[8px] text-rose-500">NODE_ALPHA</span>
+</div>
+<div class="bg-slate-900 border border-slate-700 px-2 py-1 flex items-center gap-1">
+<span class="w-1 h-1 bg-slate-500 rounded-full"></span>
+<span class="font-micro-label text-[8px] text-slate-500">NODE_BETA</span>
+</div>
+<div class="bg-rose-600/10 border border-rose-600/30 px-2 py-1 flex items-center gap-1">
+<span class="w-1 h-1 bg-rose-600 rounded-full"></span>
+<span class="font-micro-label text-[8px] text-rose-500">NODE_GAMMA</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Floating Coordinate -->
+<div class="fixed bottom-4 right-4 font-data-readout text-[10px] text-slate-700 select-none hidden md:block">
+            REF_XYZ: 0.9928 / 0.1121 / 4.8821 <br/>
+            TIMESTAMP: 1715421245.002
+        </div>
+</main>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-slate-950/95 backdrop-blur-lg border-t border-slate-800 flex justify-around items-center h-16 z-50">
+<a class="flex flex-col items-center gap-1 text-rose-500" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="text-[8px] font-mono">OPERATOR</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">radar</span>
+<span class="text-[8px] font-mono">SENSOR</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-[8px] font-mono">LOGS</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-[8px] font-mono">GRID</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+        .clip-path-right-notch {
+            clip-path: polygon(0% 0%, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+        }
+        .clip-path-hex {
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+        }
+        .clip-path-card {
+            clip-path: polygon(0 0, 95% 0, 100% 5%, 100% 100%, 5% 100%, 0 95%);
+        }
+        .scanline {
+            background: linear-gradient(to bottom, transparent 50%, rgba(225, 29, 72, 0.05) 50%);
+            background-size: 100% 4px;
+        }
+        .grid-overlay {
+            background-image: radial-gradient(circle, #334155 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#c3c7cc",
+                        "error-container": "#93000a",
+                        "surface-container": "#201f1f",
+                        "on-secondary-fixed-variant": "#43474b",
+                        "on-tertiary-fixed": "#40000e",
+                        "surface-bright": "#3a3939",
+                        "surface": "#141313",
+                        "surface-tint": "#c6c6c9",
+                        "on-tertiary-fixed-variant": "#91002b",
+                        "on-tertiary-container": "#eb4762",
+                        "primary-container": "#1a1c1e",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#838486",
+                        "tertiary-container": "#41000e",
+                        "outline": "#8f9194",
+                        "on-primary": "#2f3133",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "inverse-primary": "#5d5e61",
+                        "background": "#141313",
+                        "inverse-surface": "#e5e2e1",
+                        "outline-variant": "#44474a",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-container": "#484c50",
+                        "primary": "#c6c6c9",
+                        "on-secondary-fixed": "#181c20",
+                        "on-secondary": "#2d3135",
+                        "surface-container-highest": "#353435",
+                        "on-tertiary": "#67001c",
+                        "on-primary-fixed-variant": "#454749",
+                        "secondary-fixed": "#e0e3e8",
+                        "on-background": "#e5e2e1",
+                        "tertiary-fixed": "#ffdadb",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#1a1c1e",
+                        "surface-variant": "#353435",
+                        "primary-fixed-dim": "#c6c6c9",
+                        "on-secondary-container": "#b9bcc1",
+                        "on-surface": "#e5e2e1",
+                        "on-error": "#690005",
+                        "surface-dim": "#141313"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "16px",
+                        "micro": "2px",
+                        "edge-margin": "24px",
+                        "gutter": "12px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "code-snippet": ["Fira Code"],
+                        "digital-display": ["monospace"],
+                        "data-readout": ["JetBrains Mono"],
+                        "micro-label": ["Space Grotesk"],
+                        "header-primary": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "code-snippet": ["11px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "digital-display": ["24px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "data-readout": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "micro-label": ["9px", {"lineHeight": "1", "letterSpacing": "0.15em", "fontWeight": "400"}],
+                        "header-primary": ["18px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-950 text-on-surface selection:bg-rose-600 selection:text-white overflow-hidden h-screen font-data-readout">
+<!-- TopAppBar -->
+<header class="bg-slate-950/90 backdrop-blur-md text-rose-600 font-space-grotesk font-bold tracking-tighter uppercase text-xs docked full-width top-0 border-b border-slate-800/50 border-b border-slate-800/40 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-gradient-to-r after:from-transparent after:via-rose-600/20 after:to-transparent flat no shadows flex justify-between items-center w-full px-4 h-14 z-50">
+<div class="flex items-center gap-6">
+<span class="text-xl font-black tracking-widest text-rose-600 drop-shadow-[0_0_8px_rgba(225,29,72,0.4)]">PROTOCOL_88_EVO</span>
+<nav class="hidden md:flex items-center gap-4">
+<a class="text-rose-500 border-b-2 border-rose-600 font-bold px-2 py-1" href="#">DIAGNOSTICS</a>
+<a class="text-slate-500 hover:text-slate-200 transition-colors duration-200 px-2 py-1" href="#">COMM_LINKS</a>
+<a class="text-slate-500 hover:text-slate-200 transition-colors duration-200 px-2 py-1" href="#">TACTICAL_GRID</a>
+<a class="text-slate-500 hover:text-slate-200 transition-colors duration-200 px-2 py-1" href="#">CORE</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1 bg-slate-900 border border-slate-800 skew-x-[-12deg]">
+<span class="material-symbols-outlined text-[14px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[10px] uppercase p-0 w-32 placeholder:text-slate-700" placeholder="SYS_QUERY_CMD..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="material-symbols-outlined hover:bg-rose-600/10 hover:text-rose-400 p-1.5 transition-colors">terminal</button>
+<button class="material-symbols-outlined hover:bg-rose-600/10 hover:text-rose-400 p-1.5 transition-colors">settings</button>
+<button class="material-symbols-outlined hover:bg-rose-600/10 hover:text-rose-400 p-1.5 transition-colors text-rose-500">power_settings_new</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="bg-slate-950 text-rose-600 font-mono text-[10px] uppercase tracking-widest docked left-0 h-full w-64 border-r border-slate-800/50 border-r border-slate-800/50 flat no shadows fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex flex-col justify-between py-4 z-40">
+<div class="flex flex-col gap-1">
+<div class="px-6 py-4 flex items-center gap-3 border-b border-slate-900 mb-2">
+<div class="w-8 h-8 rounded-sm bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden">
+<img alt="OPERATOR_ID_88" class="opacity-50" data-alt="Stylized monochromatic technical avatar portrait of a cyberpunk operator with digital noise and scanlines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACcgeyI9UBwtWqDSLz9kIwTE5ZQqAPXEq3SsS0rmVPvN-La0vaQlUyDyk2JQscms4-izsPnyNdB6OaXD9HAgi53H1ZEROq80yL454u7B_WoR4rK_W-XUqYQGKEdd8MAM7sAR3VzLm1uMJb4vQtivsb1JEFx0yEUGNa_xY03inB2yq_p6OvPFWjNVzGTcEqWBZXtWfcxNd3hJDbgdFQ1joJ-LDaItRpckhp8bYd8F3SVhJcjqSEn1LdWPRkim7LLT6znaXX9RUXcjc"/>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-200 font-bold">OS_VER_88.0.1</span>
+<span class="text-[8px] text-slate-500">LAT:40.71/LON:74.00</span>
+</div>
+</div>
+<a class="flex items-center gap-3 bg-rose-600/10 text-rose-500 border-l-4 border-rose-600 px-4 py-3 clip-path-right-notch animate-pulse duration-700" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span>OPERATOR</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 hover:bg-slate-900 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">radar</span>
+<span>SENSOR_NET</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 hover:bg-slate-900 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>LOGISTICS</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 hover:bg-slate-900 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">lock</span>
+<span>ENCRYPTION</span>
+</a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 hover:bg-slate-900 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span>MAP_GRID</span>
+</a>
+</div>
+<div class="flex flex-col gap-1 px-4">
+<div class="flex justify-between items-center text-slate-600 mb-2 px-2">
+<span class="text-[8px]">SUB_SYS_HEALTH</span>
+<span class="text-[8px] font-bold text-rose-900">98.4%</span>
+</div>
+<a class="flex items-center gap-2 text-slate-500 hover:text-slate-300 py-2" href="#">
+<span class="material-symbols-outlined text-sm">memory</span>
+<span>SYS_STATUS</span>
+</a>
+<a class="flex items-center gap-2 text-slate-500 hover:text-slate-300 py-2" href="#">
+<span class="material-symbols-outlined text-sm">description</span>
+<span>DATA_LOGS</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-14 h-[calc(100vh-3.5rem)] relative overflow-hidden bg-slate-950">
+<!-- Global UI Overlays -->
+<div class="absolute inset-0 grid-overlay opacity-20 pointer-events-none"></div>
+<div class="absolute inset-0 scanline opacity-10 pointer-events-none"></div>
+<!-- Hero: Core Wireframe -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="relative w-[600px] h-[600px] flex items-center justify-center">
+<!-- Outer Hexagon Frame -->
+<div class="absolute inset-0 border border-slate-800/40 clip-path-hex rotate-12"></div>
+<div class="absolute inset-4 border-2 border-rose-600/10 clip-path-hex -rotate-12"></div>
+<!-- Inner 3D Wireframe 'Core' Visualization -->
+<div class="w-80 h-80 relative">
+<div class="absolute inset-0 border-[0.5px] border-rose-500/30 rounded-full animate-[spin_20s_linear_infinite]"></div>
+<div class="absolute inset-4 border-[0.5px] border-rose-400/40 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<svg class="text-rose-600/40" height="240" viewbox="0 0 200 200" width="240">
+<path d="M100 0 L200 100 L100 200 L0 100 Z" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+<path d="M100 20 L180 100 L100 180 L20 100 Z" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+<circle class="animate-pulse" cx="100" cy="100" fill="currentColor" r="10"></circle>
+<line stroke="currentColor" stroke-width="0.2" x1="100" x2="100" y1="0" y2="200"></line>
+<line stroke="currentColor" stroke-width="0.2" x1="0" x2="200" y1="100" y2="100"></line>
+</svg>
+</div>
+<!-- Data Rings -->
+<div class="absolute -inset-10 border border-slate-800/20 rounded-full border-dashed animate-[spin_60s_linear_infinite]"></div>
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 flex flex-col items-center">
+<span class="font-micro-label text-micro-label text-rose-500">CORE_THERMAL_LOAD</span>
+<span class="font-digital-display text-lg text-slate-200">42.8°C</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Satellite Modules (Bento Grid Style / Tactical Layout) -->
+<div class="relative z-10 p-6 grid grid-cols-12 grid-rows-6 gap-4 h-full">
+<!-- LATENCY FEED POD -->
+<div class="col-span-3 row-span-2 bg-slate-900/40 border border-slate-800/60 p-3 clip-path-card relative">
+<div class="absolute top-0 right-0 p-1">
+<span class="text-[7px] text-slate-600 font-code-snippet">ID: POD_01 // SEC_V3</span>
+</div>
+<div class="flex items-center gap-2 mb-3 border-b border-slate-800 pb-1">
+<span class="material-symbols-outlined text-rose-500 text-sm">waves</span>
+<h3 class="font-micro-label text-micro-label uppercase text-slate-400">NODE_LATENCY_STRM</h3>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-[10px]">
+<span class="text-slate-500 font-code-snippet">EU-WEST_01</span>
+<div class="flex gap-1 h-2 items-end">
+<div class="w-1 h-1 bg-rose-600"></div>
+<div class="w-1 h-1.5 bg-rose-600"></div>
+<div class="w-1 h-2 bg-rose-600"></div>
+<span class="ml-1 text-rose-500">12ms</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-[10px]">
+<span class="text-slate-500 font-code-snippet">US-EAST_04</span>
+<div class="flex gap-1 h-2 items-end">
+<div class="w-1 h-1 bg-slate-700"></div>
+<div class="w-1 h-1 bg-slate-700"></div>
+<div class="w-1 h-1 bg-rose-600"></div>
+<span class="ml-1 text-slate-400">88ms</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-[10px]">
+<span class="text-slate-500 font-code-snippet">ASIA-PAC_09</span>
+<div class="flex gap-1 h-2 items-end">
+<div class="w-1 h-1.5 bg-rose-600"></div>
+<div class="w-1 h-2 bg-rose-600"></div>
+<div class="w-1 h-1 bg-rose-600"></div>
+<span class="ml-1 text-rose-500">24ms</span>
+</div>
+</div>
+</div>
+<div class="mt-4 border-t border-slate-800/50 pt-2">
+<div class="w-full h-8 bg-slate-950/80 overflow-hidden relative">
+<div class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-rose-600/5 to-transparent"></div>
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<polyline fill="none" opacity="0.4" points="0,32 20,20 40,25 60,10 80,15 100,28 120,5 140,22 160,18 180,30" stroke="#e11d48" stroke-width="1"></polyline>
+</svg>
+</div>
+</div>
+</div>
+<!-- BOOT LOGS / CONSOLE -->
+<div class="col-span-3 row-start-5 row-span-2 bg-slate-950/80 border border-slate-800/40 p-3 font-code-snippet text-[9px] text-slate-500 overflow-hidden">
+<div class="flex justify-between items-center mb-2 text-rose-600/80 border-b border-rose-900/30 pb-1">
+<span>SYS_BOOT_LOG</span>
+<span class="animate-pulse">_</span>
+</div>
+<div class="space-y-1">
+<p><span class="text-slate-700">[0.0001]</span> INITIALIZING_CORE_P88...</p>
+<p><span class="text-slate-700">[0.0024]</span> MOUNTING_HEX_VIRTUAL_ARRAY</p>
+<p><span class="text-rose-900">[0.0455]</span> <span class="text-rose-600">WARN:</span> SYNC_DELAY_DETECTED</p>
+<p><span class="text-slate-700">[0.0890]</span> ESTABLISHING_ENCRYPTED_TUNNEL</p>
+<p><span class="text-slate-700">[0.1245]</span> HANDSHAKE_SUCCESSFUL_OPERATOR_88</p>
+<p><span class="text-slate-700">[0.1550]</span> DATA_STREAM_UP: 104.2Gbps</p>
+</div>
+</div>
+<!-- MAIN DATA READOUT (RIGHT) -->
+<div class="col-start-10 col-span-3 row-span-4 flex flex-col gap-4">
+<div class="bg-slate-900/20 border border-slate-800/40 p-4 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-12 h-12 border border-rose-600/20 rotate-45 group-hover:bg-rose-600/5 transition-colors"></div>
+<h2 class="font-header-primary text-header-primary text-slate-200 mb-1">OPERATIONAL_STATE</h2>
+<p class="text-micro-label font-micro-label text-rose-500 mb-4 tracking-tighter">SEC_LVL_ALPHA // CLEARANCE_REQUIRED</p>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-[9px] text-slate-500">HEARTBEAT_STABILITY</span>
+<span class="text-[9px] font-bold text-slate-300">99.9%</span>
+</div>
+<div class="w-full h-1 bg-slate-800">
+<div class="w-[99.9%] h-full bg-rose-600"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-[9px] text-slate-500">ENCRYPTION_STRENGTH</span>
+<span class="text-[9px] font-bold text-slate-300">AES_4096_X</span>
+</div>
+<div class="w-full h-1 bg-slate-800">
+<div class="w-[85%] h-full bg-rose-600"></div>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-slate-800/60">
+<button class="w-full py-2 bg-rose-600/10 border border-rose-600/40 text-rose-500 font-bold text-[10px] uppercase hover:bg-rose-600 hover:text-white transition-all clip-path-right-notch flex items-center justify-center gap-2 group">
+<span>RE_INITIALIZE_CORE</span>
+<span class="material-symbols-outlined text-xs group-hover:rotate-180 transition-transform">refresh</span>
+</button>
+</div>
+</div>
+<div class="flex-grow bg-slate-900/40 border border-slate-800/40 p-3 flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-rose-600 rounded-full shadow-[0_0_8px_#e11d48]"></span>
+<span class="text-[10px] font-bold text-slate-400">ACTIVE_NODES (14)</span>
+</div>
+<div class="flex-grow overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-30 grayscale contrast-125" data-alt="Technical wireframe map of global network nodes with illuminated connections and data flow indicators in red and slate colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPonyZyVcZrkY2yvUlPcPziAVUNqhFXcLe3AfqnvhHkplMJ8gm2c0H9TQ8UX2zDGruviCl1k_iJndwyFKY0KFmUvKsu_hhlkZXjQn4gE7UM7AIFfSXYVT7begvBtAjL_xPMIvcbVzv6v6TnFrYeffwBkb6bhJn6WT-rPvt62ggi6RRuF3NJWYu3X3kf_sMNlNbQQ2Q-JlT7pWzoZ7kpqtzz8-Ge4s5Cp5rOv2KKYC8o4MOm49gPLuhxRIhhvkJspImF5tHfngYzfg"/>
+<div class="absolute inset-0 border border-slate-800/40"></div>
+<!-- Tiny markers -->
+<div class="absolute top-1/4 left-1/3 w-1 h-1 bg-rose-600 animate-ping"></div>
+<div class="absolute bottom-1/3 right-1/4 w-1 h-1 bg-rose-600"></div>
+</div>
+<div class="text-[8px] font-code-snippet text-slate-600 leading-tight">
+                        LAT: 35.6762 / LON: 139.6503<br/>
+                        STATUS: SYNC_CONFIRMED
+                    </div>
+</div>
+</div>
+<!-- CENTER BOTTOM INTERFACE CONTROLS -->
+<div class="col-start-4 col-span-6 row-start-6 flex items-center justify-center gap-6 border-t border-slate-800/40 pt-4">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<span class="text-micro-label text-[8px] text-slate-500 mb-1">ZOOM</span>
+<div class="flex border border-slate-800">
+<button class="px-2 py-1 hover:bg-slate-800 text-xs">-</button>
+<span class="px-3 py-1 bg-slate-900 text-slate-300 text-[10px] font-bold">1.0X</span>
+<button class="px-2 py-1 hover:bg-slate-800 text-xs">+</button>
+</div>
+</div>
+<div class="flex flex-col items-center">
+<span class="text-micro-label text-[8px] text-slate-500 mb-1">SENSITIVITY</span>
+<div class="flex border border-slate-800">
+<div class="w-24 h-6 bg-slate-900 flex items-center px-1 gap-0.5">
+<div class="w-2 h-3 bg-rose-600"></div>
+<div class="w-2 h-3 bg-rose-600"></div>
+<div class="w-2 h-3 bg-rose-600"></div>
+<div class="w-2 h-3 bg-slate-800"></div>
+<div class="w-2 h-3 bg-slate-800"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="h-12 w-[1px] bg-slate-800"></div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-800 text-[10px] text-slate-400 hover:text-rose-500 hover:border-rose-600/50 transition-all">
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+                        DEPLOY_RESOURCES
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-rose-600 text-white text-[10px] font-black hover:bg-rose-700 transition-all shadow-[0_0_15px_rgba(225,29,72,0.3)]">
+<span class="material-symbols-outlined text-sm">emergency</span>
+                        SCRAM_INIT
+                    </button>
+</div>
+</div>
+<!-- ASYMMETRIC METADATA -->
+<div class="absolute bottom-6 left-6 text-slate-700 font-code-snippet text-[7px] space-y-0.5">
+<p>U_THREAD: 0x889F_E21</p>
+<p>KERNEL: RT_88_MICRO</p>
+<p>UPTIME: 14:02:88:12</p>
+</div>
+<div class="absolute top-20 right-6 flex flex-col items-end text-slate-700 font-code-snippet text-[7px] space-y-0.5">
+<p>FRAME_RATE: 60_FPS_LOCKED</p>
+<p>PACKET_LOSS: 0.00%</p>
+<p>BUFFER_HEALTH: 100%</p>
+<div class="mt-2 w-16 h-1 px-0.5 bg-slate-900 border border-slate-800">
+<div class="h-full bg-rose-900/50 w-3/4"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Global System Accents -->
+<div class="fixed top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-rose-600 z-50"></div>
+<div class="fixed top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-rose-600 z-50"></div>
+<div class="fixed bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-rose-600 z-50"></div>
+<div class="fixed bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-rose-600 z-50"></div>
+<!-- Floating Brackets Decoration -->
+<div class="fixed top-1/2 -left-2 transform -translate-y-1/2 text-rose-900/20 text-6xl font-thin pointer-events-none">[</div>
+<div class="fixed top-1/2 -right-2 transform -translate-y-1/2 text-rose-900/20 text-6xl font-thin pointer-events-none">]</div>
+</body></html>
